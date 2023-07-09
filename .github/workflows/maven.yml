@@ -18,7 +18,7 @@ jobs:
         run: |
             cd ./workspace/fabbrica
               mvn -B compile --file pom.xml
-      - name: Build project
+      - name: Test project
         run: |
-              mvn -B test --file pom.xml
+              mvn test 
 
