@@ -14,9 +14,6 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Install maven
-        run: |
-          ...
       - name: Run maven command
         run: |
             cd ./workspace/fabbrica
