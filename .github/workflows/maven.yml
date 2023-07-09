@@ -16,9 +16,10 @@ jobs:
           distribution: 'temurin'
       - name: Build project
         run: |
-            cd ./workspace/fabbrica
+              cd ./workspace/fabbrica
               mvn -B compile --file pom.xml
       - name: Test project
         run: |
+              cd ./workspace/fabbrica
               mvn test 
 
