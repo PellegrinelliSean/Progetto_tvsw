@@ -8,6 +8,6 @@ public class TestFabbrica {
 
 	@Test
 	public void test() {
-		assertTrue(true);
+		fail("NON VA");
 	}
 }
