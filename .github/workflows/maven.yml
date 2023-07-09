@@ -3,7 +3,7 @@ name: Java CI
 on: [push]
 
 jobs:
-  compile_and_test:
+  compile:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,10 +18,6 @@ jobs:
         run: |
               cd ./workspace/fabbrica
               mvn -B compile --file pom.xml
-      - name: Test project
-        run: |
-              cd ./workspace/fabbrica
-              mvn test 
   test:
       runs-on: ubuntu-latest
       
