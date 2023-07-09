@@ -14,7 +14,11 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Build project with Maven
+      - name: Build project
         run: |
             cd ./workspace/fabbrica
-              mvn -B package --file pom.xml
+              mvn -B compile --file pom.xml
+      - name: Test project
+        run: |
+              mvn test 
+
