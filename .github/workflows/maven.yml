@@ -19,7 +19,7 @@ jobs:
           ...
       - name: Run maven command
         run: |
-            cd ./java
+            cd ./workspace/fabbrica
               mvn clean package test
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots package
