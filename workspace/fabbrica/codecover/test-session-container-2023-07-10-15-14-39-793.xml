@@ -1,0 +1,937 @@
+<?xml version="1.0" encoding="UTF-8"?><TestSessionContainer xmlns="http://www.codecover.org/xml/testsession-container" Date="1688994879783" TestSessionContainerId="71fefd70-5fa6-414f-84fb-3c7db46d6178" version="1.0">
+    <SrcFileList>
+        <SrcFile Content="package reparti;&#13;&#10;&#13;&#10;import fabbrica.InvalidInputException;&#13;&#10;&#13;&#10;enum Fasi {ATTESA_POSIZIONAMENTO, RIFINITURA, COLORAZIONE, PREPARAZIONE_LUCIDATURA, LUCIDATURA, ATTESA_PRELIEVO}&#13;&#10;&#13;&#10;public class Produzione {&#13;&#10;&#9;Fasi[] fase_linea;&#13;&#10;&#9;int[] fase_lucidatura;&#13;&#10;&#9;int n_linee;&#13;&#10;&#9;&#13;&#10;&#9;// inizializza n linee di produzione in ATTESA_POSIZIONAMENTO&#13;&#10;&#9;public Produzione(int n) throws InvalidInputException {&#13;&#10;&#9;&#9;if(n &lt;= 0) throw new InvalidInputException();&#13;&#10;&#9;&#9;n_linee = 3;&#13;&#10;&#9;&#9;fase_linea = new Fasi[n_linee];&#13;&#10;&#9;&#9;for (int i = 0; i &lt; fase_linea.length; i++)&#13;&#10;&#9;&#9;&#9;fase_linea[i] = Fasi.ATTESA_POSIZIONAMENTO;&#13;&#10;&#9;&#9;fase_lucidatura = new int[n_linee];&#13;&#10;&#9;}&#13;&#10;&#9;&#13;&#10;&#9;// fa procedere di un passo le linee&#13;&#10;&#9;public void avanza() {&#13;&#10;&#9;&#9;for (int i=0; i &lt; fase_linea.length; i++)&#13;&#10;&#9;&#9;&#9;avanzaLinea(i);&#13;&#10;&#9;}&#13;&#10;&#9;&#13;&#10;&#9;// posiziona un prodotto da lavorare sulla linea l (se possibile) e fa avanzare le linee&#13;&#10;&#9;public void posiziona(int l) throws InvalidInputException {&#13;&#10;&#9;&#9;if(l &lt; 0 || l &gt;= n_linee) throw new InvalidInputException();&#13;&#10;&#9;&#9;if (fase_linea[l] == Fasi.ATTESA_POSIZIONAMENTO)&#13;&#10;&#9;&#9;&#9;fase_linea[l] = Fasi.RIFINITURA;&#13;&#10;&#9;&#9;else&#13;&#10;&#9;&#9;&#9;l = -1;&#13;&#10;&#9;&#9;for (int i = 0; i &lt; fase_linea.length; i++) {&#13;&#10;&#9;&#9;&#9;if (i != l)&#13;&#10;&#9;&#9;&#9;&#9;avanzaLinea(i);&#13;&#10;&#9;&#9;}&#13;&#10;&#9;}&#13;&#10;&#9;&#13;&#10;&#9;// preleva un prodotto lavorato dalla linea l (se possibile) e fa avanzare le linee&#13;&#10;&#9;public void preleva(int l) throws InvalidInputException {&#13;&#10;&#9;&#9;if(l &lt; 0 || l &gt;= n_linee) throw new InvalidInputException();&#13;&#10;&#9;&#9;if (fase_linea[l] == Fasi.ATTESA_PRELIEVO)&#13;&#10;&#9;&#9;&#9;fase_linea[l] = Fasi.ATTESA_POSIZIONAMENTO;&#13;&#10;&#9;&#9;else&#13;&#10;&#9;&#9;&#9;l = -1;&#13;&#10;&#9;&#9;for (int i=0; i &lt; fase_linea.length; i++) {&#13;&#10;&#9;&#9;&#9;if (i != l)&#13;&#10;&#9;&#9;&#9;&#9;avanzaLinea(i);&#13;&#10;&#9;&#9;}&#13;&#10;&#9;}&#13;&#10;&#9;&#13;&#10;&#9;// fa procedere la i-esima linea in base alla fase in cui si trova&#13;&#10;&#9;private void avanzaLinea(int i) {&#13;&#10;&#9;&#9;switch (fase_linea[i]) {&#13;&#10;&#9;&#9;&#9;case RIFINITURA:&#13;&#10;&#9;&#9;&#9;&#9;fase_linea[i] = Fasi.COLORAZIONE;&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;case COLORAZIONE:&#13;&#10;&#9;&#9;&#9;&#9;fase_linea[i] = Fasi.PREPARAZIONE_LUCIDATURA;&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;case PREPARAZIONE_LUCIDATURA:&#13;&#10;&#9;&#9;&#9;&#9;if (lucidaturaDisponibile(i)) {&#13;&#10;&#9;&#9;&#9;&#9;&#9;fase_linea[i] = Fasi.LUCIDATURA;&#13;&#10;&#9;&#9;&#9;&#9;&#9;fase_lucidatura[i] = 1;&#13;&#10;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;case LUCIDATURA:&#13;&#10;&#9;&#9;&#9;&#9;if (fase_lucidatura[i] == 1)&#13;&#10;&#9;&#9;&#9;&#9;&#9;fase_lucidatura[i] = 2;&#13;&#10;&#9;&#9;&#9;&#9;else {&#13;&#10;&#9;&#9;&#9;&#9;&#9;fase_linea[i] = Fasi.ATTESA_PRELIEVO;&#13;&#10;&#9;&#9;&#9;&#9;&#9;fase_lucidatura[i] = 0;&#13;&#10;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;&#9;break;&#13;&#10;&#9;&#9;&#9;default:&#13;&#10;&#9;&#9;&#9;&#9;break;&#9;&#9;&#9;&#13;&#10;&#9;&#9;}&#13;&#10;&#9;}&#13;&#10;&#9;&#13;&#10;&#9;// verifica se la i-esima linea può passare alla LUCIDATURA&#13;&#10;&#9;private boolean lucidaturaDisponibile(int i) {&#13;&#10;&#9;&#9;for (int j = 0; j &lt; fase_linea.length; j++) {&#13;&#10;&#9;&#9;&#9;// un altro è entrato nella seconda parte di LUCIDATURA in questa chiamata di preleva(), posiziona() o avanza()&#13;&#10;&#9;&#9;&#9;if (fase_linea[j] == Fasi.LUCIDATURA &amp;&amp; fase_lucidatura[j] == 2 &amp;&amp; j &lt; i)&#13;&#10;&#9;&#9;&#9;&#9;return false;&#13;&#10;&#9;&#9;&#9;// un altro nella prima fase di LUCIDATURA&#13;&#10;&#9;&#9;&#9;if (fase_linea[j] == Fasi.LUCIDATURA &amp;&amp; fase_lucidatura[j] == 1)&#13;&#10;&#9;&#9;&#9;&#9;return false;&#13;&#10;&#9;&#9;&#9;// un altro è nella seconda parte di LUCIDATURA e ne uscirà in questa chiamata di preleva(), posiziona() o avanza()&#13;&#10;&#9;&#9;&#9;if (fase_linea[j] == Fasi.LUCIDATURA &amp;&amp; fase_lucidatura[j] == 2 &amp;&amp; j &gt; i) {&#13;&#10;&#9;&#9;&#9;&#9;fase_linea[j] = Fasi.ATTESA_PRELIEVO;&#13;&#10;&#9;&#9;&#9;&#9;fase_lucidatura[j] = 0;&#13;&#10;&#9;&#9;&#9;&#9;return true;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;// nessun caso particolare, posso andare in LUCIDATURA&#13;&#10;&#9;&#9;return true; &#13;&#10;&#9;}&#13;&#10;}&#13;&#10;" Filename="Produzione.java" Intrnl_Id="1"/>
+    </SrcFileList>
+    <CritList>
+        <CritListEntry Name="org.codecover.model.utils.criteria.ConditionCoverage" PluginName="org.codecover"/>
+        <CritListEntry Name="org.codecover.model.utils.criteria.BranchCoverage" PluginName="org.codecover"/>
+        <CritListEntry Name="org.codecover.model.utils.criteria.StatementCoverage" PluginName="org.codecover"/>
+    </CritList>
+    <BoolOpList>
+        <BoolOp Arity="2" Intrnl_Id="2" Name="conditional and (&amp;&amp;)">
+            <BoolAssgnmntBoolMapList>
+                <MapEntry BoolAssgnmnt="02" Value="false"/>
+                <MapEntry BoolAssgnmnt="10" Value="false"/>
+                <MapEntry BoolAssgnmnt="11" Value="true"/>
+            </BoolAssgnmntBoolMapList>
+        </BoolOp>
+        <BoolOp Arity="2" Intrnl_Id="3" Name="conditional or (||)">
+            <BoolAssgnmntBoolMapList>
+                <MapEntry BoolAssgnmnt="00" Value="false"/>
+                <MapEntry BoolAssgnmnt="01" Value="true"/>
+                <MapEntry BoolAssgnmnt="12" Value="true"/>
+            </BoolAssgnmntBoolMapList>
+        </BoolOp>
+    </BoolOpList>
+    <HierarchyLvlTypeList>
+        <HierarchyLvlType EnglishName="enumeration" IntrnlName="enum" Intrnl_Id="4"/>
+        <HierarchyLvlType EnglishName="package" IntrnlName="package" Intrnl_Id="5"/>
+        <HierarchyLvlType EnglishName="method" IntrnlName="method" Intrnl_Id="6"/>
+        <HierarchyLvlType EnglishName="class" IntrnlName="class" Intrnl_Id="7"/>
+        <HierarchyLvlType EnglishName="default package" IntrnlName="default package" Intrnl_Id="8"/>
+    </HierarchyLvlTypeList>
+    <MASTRoot>
+        <HierarchyLvl HierarchyLvlId="179" HierarchyLvlTypeId="8" Intrnl_Id="9" Name="default package">
+            <Header/>
+            <LocList/>
+            <HierarchyLvl HierarchyLvlId="178" HierarchyLvlTypeId="5" Intrnl_Id="10" Name="reparti">
+                <Header/>
+                <LocList/>
+                <HierarchyLvl HierarchyLvlId="170" HierarchyLvlTypeId="4" Intrnl_Id="11" Name="Fasi">
+                    <Header>
+                        <Loc EndOffset="71" SrcFileId="1" StartOffset="62"/>
+                    </Header>
+                    <LocList>
+                        <Loc EndOffset="174" SrcFileId="1" StartOffset="62"/>
+                    </LocList>
+                </HierarchyLvl>
+                <HierarchyLvl HierarchyLvlId="177" HierarchyLvlTypeId="7" Intrnl_Id="12" Name="Produzione">
+                    <Header>
+                        <Loc EndOffset="201" SrcFileId="1" StartOffset="178"/>
+                    </Header>
+                    <LocList>
+                        <Loc EndOffset="3180" SrcFileId="1" StartOffset="178"/>
+                    </LocList>
+                    <HierarchyLvl HierarchyLvlId="171" HierarchyLvlTypeId="6" Intrnl_Id="13" Name="Produzione">
+                        <Header>
+                            <Loc EndOffset="387" SrcFileId="1" StartOffset="334"/>
+                        </Header>
+                        <LocList>
+                            <Loc EndOffset="627" SrcFileId="1" StartOffset="334"/>
+                        </LocList>
+                        <StmntSeq Intrnl_Id="14">
+                            <LocList>
+                                <Loc EndOffset="438" SrcFileId="1" StartOffset="393"/>
+                                <Loc EndOffset="454" SrcFileId="1" StartOffset="442"/>
+                                <Loc EndOffset="489" SrcFileId="1" StartOffset="458"/>
+                                <Loc EndOffset="584" SrcFileId="1" StartOffset="493"/>
+                                <Loc EndOffset="623" SrcFileId="1" StartOffset="588"/>
+                            </LocList>
+                            <CondStmnt CovItemId="S1" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="15">
+                                <Branch CovItemId="B1" CovItemPrefix="reparti.Produzione.java" Implct="false" Intrnl_Id="16">
+                                    <Cond/>
+                                    <LocList>
+                                        <Loc EndOffset="438" SrcFileId="1" StartOffset="404"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="17">
+                                        <LocList>
+                                            <Loc EndOffset="438" SrcFileId="1" StartOffset="404"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S2" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="18">
+                                            <LocList>
+                                                <Loc EndOffset="438" SrcFileId="1" StartOffset="404"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Branch CovItemId="B2" CovItemPrefix="reparti.Produzione.java" Implct="true" Intrnl_Id="19">
+                                    <Cond/>
+                                    <LocList/>
+                                    <StmntSeq Intrnl_Id="20">
+                                        <LocList/>
+                                    </StmntSeq>
+                                </Branch>
+                                <Keyword EndOffset="395" SrcFileId="1" StartOffset="393"/>
+                                <LocList>
+                                    <Loc EndOffset="438" SrcFileId="1" StartOffset="393"/>
+                                </LocList>
+                                <RootTerm CovItemId="C1" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="21">
+                                    <BasicBoolTerm Intrnl_Id="22">
+                                        <LocList>
+                                            <Loc EndOffset="402" SrcFileId="1" StartOffset="396"/>
+                                        </LocList>
+                                    </BasicBoolTerm>
+                                </RootTerm>
+                            </CondStmnt>
+                            <BasicStmnt CovItemId="S3" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="23">
+                                <LocList>
+                                    <Loc EndOffset="454" SrcFileId="1" StartOffset="442"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S4" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="24">
+                                <LocList>
+                                    <Loc EndOffset="489" SrcFileId="1" StartOffset="458"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <LoopStmnt CovItemId="S5" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="25" MltplExecId="L1-2" MltplExecPrefix="reparti.Produzione.java" NvrExecId="L1-0" NvrExecPrefix="reparti.Produzione.java" OnceExecutedId="L1-1" OnceExecutedPrefix="reparti.Produzione.java" OptBodyExec="true">
+                                <StmntSeq Intrnl_Id="26">
+                                    <LocList>
+                                        <Loc EndOffset="584" SrcFileId="1" StartOffset="541"/>
+                                    </LocList>
+                                    <BasicStmnt CovItemId="S6" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="27">
+                                        <LocList>
+                                            <Loc EndOffset="584" SrcFileId="1" StartOffset="541"/>
+                                        </LocList>
+                                    </BasicStmnt>
+                                </StmntSeq>
+                                <Keyword EndOffset="496" SrcFileId="1" StartOffset="493"/>
+                                <LocList>
+                                    <Loc EndOffset="584" SrcFileId="1" StartOffset="493"/>
+                                </LocList>
+                                <RootTerm CovItemId="C2" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="28">
+                                    <BasicBoolTerm Intrnl_Id="29">
+                                        <LocList>
+                                            <Loc EndOffset="530" SrcFileId="1" StartOffset="509"/>
+                                        </LocList>
+                                    </BasicBoolTerm>
+                                </RootTerm>
+                            </LoopStmnt>
+                            <BasicStmnt CovItemId="S7" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="30">
+                                <LocList>
+                                    <Loc EndOffset="623" SrcFileId="1" StartOffset="588"/>
+                                </LocList>
+                            </BasicStmnt>
+                        </StmntSeq>
+                    </HierarchyLvl>
+                    <HierarchyLvl HierarchyLvlId="172" HierarchyLvlTypeId="6" Intrnl_Id="31" Name="avanza">
+                        <Header>
+                            <Loc EndOffset="692" SrcFileId="1" StartOffset="672"/>
+                        </Header>
+                        <LocList>
+                            <Loc EndOffset="763" SrcFileId="1" StartOffset="672"/>
+                        </LocList>
+                        <StmntSeq Intrnl_Id="32">
+                            <LocList>
+                                <Loc EndOffset="759" SrcFileId="1" StartOffset="698"/>
+                            </LocList>
+                            <LoopStmnt CovItemId="S8" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="33" MltplExecId="L2-2" MltplExecPrefix="reparti.Produzione.java" NvrExecId="L2-0" NvrExecPrefix="reparti.Produzione.java" OnceExecutedId="L2-1" OnceExecutedPrefix="reparti.Produzione.java" OptBodyExec="true">
+                                <StmntSeq Intrnl_Id="34">
+                                    <LocList>
+                                        <Loc EndOffset="759" SrcFileId="1" StartOffset="744"/>
+                                    </LocList>
+                                    <BasicStmnt CovItemId="S9" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="35">
+                                        <LocList>
+                                            <Loc EndOffset="759" SrcFileId="1" StartOffset="744"/>
+                                        </LocList>
+                                    </BasicStmnt>
+                                </StmntSeq>
+                                <Keyword EndOffset="701" SrcFileId="1" StartOffset="698"/>
+                                <LocList>
+                                    <Loc EndOffset="759" SrcFileId="1" StartOffset="698"/>
+                                </LocList>
+                                <RootTerm CovItemId="C3" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="36">
+                                    <BasicBoolTerm Intrnl_Id="37">
+                                        <LocList>
+                                            <Loc EndOffset="733" SrcFileId="1" StartOffset="712"/>
+                                        </LocList>
+                                    </BasicBoolTerm>
+                                </RootTerm>
+                            </LoopStmnt>
+                        </StmntSeq>
+                    </HierarchyLvl>
+                    <HierarchyLvl HierarchyLvlId="173" HierarchyLvlTypeId="6" Intrnl_Id="38" Name="posiziona">
+                        <Header>
+                            <Loc EndOffset="917" SrcFileId="1" StartOffset="860"/>
+                        </Header>
+                        <LocList>
+                            <Loc EndOffset="1187" SrcFileId="1" StartOffset="860"/>
+                        </LocList>
+                        <StmntSeq Intrnl_Id="39">
+                            <LocList>
+                                <Loc EndOffset="983" SrcFileId="1" StartOffset="923"/>
+                                <Loc EndOffset="1092" SrcFileId="1" StartOffset="987"/>
+                                <Loc EndOffset="1183" SrcFileId="1" StartOffset="1096"/>
+                            </LocList>
+                            <CondStmnt CovItemId="S10" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="40">
+                                <Branch CovItemId="B3" CovItemPrefix="reparti.Produzione.java" Implct="false" Intrnl_Id="41">
+                                    <Cond/>
+                                    <LocList>
+                                        <Loc EndOffset="983" SrcFileId="1" StartOffset="949"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="42">
+                                        <LocList>
+                                            <Loc EndOffset="983" SrcFileId="1" StartOffset="949"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S11" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="43">
+                                            <LocList>
+                                                <Loc EndOffset="983" SrcFileId="1" StartOffset="949"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Branch CovItemId="B4" CovItemPrefix="reparti.Produzione.java" Implct="true" Intrnl_Id="44">
+                                    <Cond/>
+                                    <LocList/>
+                                    <StmntSeq Intrnl_Id="45">
+                                        <LocList/>
+                                    </StmntSeq>
+                                </Branch>
+                                <Keyword EndOffset="925" SrcFileId="1" StartOffset="923"/>
+                                <LocList>
+                                    <Loc EndOffset="983" SrcFileId="1" StartOffset="923"/>
+                                </LocList>
+                                <RootTerm CovItemId="C4" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="46">
+                                    <OpTerm BooleanOpId="3" Intrnl_Id="47">
+                                        <BasicBoolTerm Intrnl_Id="48">
+                                            <LocList>
+                                                <Loc EndOffset="931" SrcFileId="1" StartOffset="926"/>
+                                            </LocList>
+                                        </BasicBoolTerm>
+                                        <BasicBoolTerm Intrnl_Id="49">
+                                            <LocList>
+                                                <Loc EndOffset="947" SrcFileId="1" StartOffset="935"/>
+                                            </LocList>
+                                        </BasicBoolTerm>
+                                        <LocList>
+                                            <Loc EndOffset="934" SrcFileId="1" StartOffset="932"/>
+                                        </LocList>
+                                    </OpTerm>
+                                </RootTerm>
+                            </CondStmnt>
+                            <CondStmnt CovItemId="S12" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="50">
+                                <Branch CovItemId="B5" CovItemPrefix="reparti.Produzione.java" Implct="false" Intrnl_Id="51">
+                                    <Cond/>
+                                    <LocList>
+                                        <Loc EndOffset="1072" SrcFileId="1" StartOffset="1040"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="52">
+                                        <LocList>
+                                            <Loc EndOffset="1072" SrcFileId="1" StartOffset="1040"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S13" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="53">
+                                            <LocList>
+                                                <Loc EndOffset="1072" SrcFileId="1" StartOffset="1040"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Branch CovItemId="B6" CovItemPrefix="reparti.Produzione.java" Implct="false" Intrnl_Id="54">
+                                    <Cond>
+                                        <Loc EndOffset="1080" SrcFileId="1" StartOffset="1076"/>
+                                    </Cond>
+                                    <LocList>
+                                        <Loc EndOffset="1092" SrcFileId="1" StartOffset="1085"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="55">
+                                        <LocList>
+                                            <Loc EndOffset="1092" SrcFileId="1" StartOffset="1085"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S14" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="56">
+                                            <LocList>
+                                                <Loc EndOffset="1092" SrcFileId="1" StartOffset="1085"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Keyword EndOffset="989" SrcFileId="1" StartOffset="987"/>
+                                <LocList>
+                                    <Loc EndOffset="1092" SrcFileId="1" StartOffset="987"/>
+                                </LocList>
+                                <RootTerm CovItemId="C5" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="57">
+                                    <BasicBoolTerm Intrnl_Id="58">
+                                        <LocList>
+                                            <Loc EndOffset="1034" SrcFileId="1" StartOffset="991"/>
+                                        </LocList>
+                                    </BasicBoolTerm>
+                                </RootTerm>
+                            </CondStmnt>
+                            <LoopStmnt CovItemId="S15" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="59" MltplExecId="L3-2" MltplExecPrefix="reparti.Produzione.java" NvrExecId="L3-0" NvrExecPrefix="reparti.Produzione.java" OnceExecutedId="L3-1" OnceExecutedPrefix="reparti.Produzione.java" OptBodyExec="true">
+                                <StmntSeq Intrnl_Id="60">
+                                    <LocList>
+                                        <Loc EndOffset="1178" SrcFileId="1" StartOffset="1146"/>
+                                    </LocList>
+                                    <CondStmnt CovItemId="S16" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="61">
+                                        <Branch CovItemId="B7" CovItemPrefix="reparti.Produzione.java" Implct="false" Intrnl_Id="62">
+                                            <Cond/>
+                                            <LocList>
+                                                <Loc EndOffset="1178" SrcFileId="1" StartOffset="1163"/>
+                                            </LocList>
+                                            <StmntSeq Intrnl_Id="63">
+                                                <LocList>
+                                                    <Loc EndOffset="1178" SrcFileId="1" StartOffset="1163"/>
+                                                </LocList>
+                                                <BasicStmnt CovItemId="S17" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="64">
+                                                    <LocList>
+                                                        <Loc EndOffset="1178" SrcFileId="1" StartOffset="1163"/>
+                                                    </LocList>
+                                                </BasicStmnt>
+                                            </StmntSeq>
+                                        </Branch>
+                                        <Branch CovItemId="B8" CovItemPrefix="reparti.Produzione.java" Implct="true" Intrnl_Id="65">
+                                            <Cond/>
+                                            <LocList/>
+                                            <StmntSeq Intrnl_Id="66">
+                                                <LocList/>
+                                            </StmntSeq>
+                                        </Branch>
+                                        <Keyword EndOffset="1148" SrcFileId="1" StartOffset="1146"/>
+                                        <LocList>
+                                            <Loc EndOffset="1178" SrcFileId="1" StartOffset="1146"/>
+                                        </LocList>
+                                        <RootTerm CovItemId="C7" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="67">
+                                            <BasicBoolTerm Intrnl_Id="68">
+                                                <LocList>
+                                                    <Loc EndOffset="1156" SrcFileId="1" StartOffset="1150"/>
+                                                </LocList>
+                                            </BasicBoolTerm>
+                                        </RootTerm>
+                                    </CondStmnt>
+                                </StmntSeq>
+                                <Keyword EndOffset="1099" SrcFileId="1" StartOffset="1096"/>
+                                <LocList>
+                                    <Loc EndOffset="1183" SrcFileId="1" StartOffset="1096"/>
+                                </LocList>
+                                <RootTerm CovItemId="C6" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="69">
+                                    <BasicBoolTerm Intrnl_Id="70">
+                                        <LocList>
+                                            <Loc EndOffset="1133" SrcFileId="1" StartOffset="1112"/>
+                                        </LocList>
+                                    </BasicBoolTerm>
+                                </RootTerm>
+                            </LoopStmnt>
+                        </StmntSeq>
+                    </HierarchyLvl>
+                    <HierarchyLvl HierarchyLvlId="174" HierarchyLvlTypeId="6" Intrnl_Id="71" Name="preleva">
+                        <Header>
+                            <Loc EndOffset="1334" SrcFileId="1" StartOffset="1279"/>
+                        </Header>
+                        <LocList>
+                            <Loc EndOffset="1607" SrcFileId="1" StartOffset="1279"/>
+                        </LocList>
+                        <StmntSeq Intrnl_Id="72">
+                            <LocList>
+                                <Loc EndOffset="1400" SrcFileId="1" StartOffset="1340"/>
+                                <Loc EndOffset="1514" SrcFileId="1" StartOffset="1404"/>
+                                <Loc EndOffset="1603" SrcFileId="1" StartOffset="1518"/>
+                            </LocList>
+                            <CondStmnt CovItemId="S18" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="73">
+                                <Branch CovItemId="B9" CovItemPrefix="reparti.Produzione.java" Implct="false" Intrnl_Id="74">
+                                    <Cond/>
+                                    <LocList>
+                                        <Loc EndOffset="1400" SrcFileId="1" StartOffset="1366"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="75">
+                                        <LocList>
+                                            <Loc EndOffset="1400" SrcFileId="1" StartOffset="1366"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S19" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="76">
+                                            <LocList>
+                                                <Loc EndOffset="1400" SrcFileId="1" StartOffset="1366"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Branch CovItemId="B10" CovItemPrefix="reparti.Produzione.java" Implct="true" Intrnl_Id="77">
+                                    <Cond/>
+                                    <LocList/>
+                                    <StmntSeq Intrnl_Id="78">
+                                        <LocList/>
+                                    </StmntSeq>
+                                </Branch>
+                                <Keyword EndOffset="1342" SrcFileId="1" StartOffset="1340"/>
+                                <LocList>
+                                    <Loc EndOffset="1400" SrcFileId="1" StartOffset="1340"/>
+                                </LocList>
+                                <RootTerm CovItemId="C8" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="79">
+                                    <OpTerm BooleanOpId="3" Intrnl_Id="80">
+                                        <BasicBoolTerm Intrnl_Id="81">
+                                            <LocList>
+                                                <Loc EndOffset="1348" SrcFileId="1" StartOffset="1343"/>
+                                            </LocList>
+                                        </BasicBoolTerm>
+                                        <BasicBoolTerm Intrnl_Id="82">
+                                            <LocList>
+                                                <Loc EndOffset="1364" SrcFileId="1" StartOffset="1352"/>
+                                            </LocList>
+                                        </BasicBoolTerm>
+                                        <LocList>
+                                            <Loc EndOffset="1351" SrcFileId="1" StartOffset="1349"/>
+                                        </LocList>
+                                    </OpTerm>
+                                </RootTerm>
+                            </CondStmnt>
+                            <CondStmnt CovItemId="S20" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="83">
+                                <Branch CovItemId="B11" CovItemPrefix="reparti.Produzione.java" Implct="false" Intrnl_Id="84">
+                                    <Cond/>
+                                    <LocList>
+                                        <Loc EndOffset="1494" SrcFileId="1" StartOffset="1451"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="85">
+                                        <LocList>
+                                            <Loc EndOffset="1494" SrcFileId="1" StartOffset="1451"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S21" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="86">
+                                            <LocList>
+                                                <Loc EndOffset="1494" SrcFileId="1" StartOffset="1451"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Branch CovItemId="B12" CovItemPrefix="reparti.Produzione.java" Implct="false" Intrnl_Id="87">
+                                    <Cond>
+                                        <Loc EndOffset="1502" SrcFileId="1" StartOffset="1498"/>
+                                    </Cond>
+                                    <LocList>
+                                        <Loc EndOffset="1514" SrcFileId="1" StartOffset="1507"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="88">
+                                        <LocList>
+                                            <Loc EndOffset="1514" SrcFileId="1" StartOffset="1507"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S22" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="89">
+                                            <LocList>
+                                                <Loc EndOffset="1514" SrcFileId="1" StartOffset="1507"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Keyword EndOffset="1406" SrcFileId="1" StartOffset="1404"/>
+                                <LocList>
+                                    <Loc EndOffset="1514" SrcFileId="1" StartOffset="1404"/>
+                                </LocList>
+                                <RootTerm CovItemId="C9" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="90">
+                                    <BasicBoolTerm Intrnl_Id="91">
+                                        <LocList>
+                                            <Loc EndOffset="1445" SrcFileId="1" StartOffset="1408"/>
+                                        </LocList>
+                                    </BasicBoolTerm>
+                                </RootTerm>
+                            </CondStmnt>
+                            <LoopStmnt CovItemId="S23" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="92" MltplExecId="L4-2" MltplExecPrefix="reparti.Produzione.java" NvrExecId="L4-0" NvrExecPrefix="reparti.Produzione.java" OnceExecutedId="L4-1" OnceExecutedPrefix="reparti.Produzione.java" OptBodyExec="true">
+                                <StmntSeq Intrnl_Id="93">
+                                    <LocList>
+                                        <Loc EndOffset="1598" SrcFileId="1" StartOffset="1566"/>
+                                    </LocList>
+                                    <CondStmnt CovItemId="S24" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="94">
+                                        <Branch CovItemId="B13" CovItemPrefix="reparti.Produzione.java" Implct="false" Intrnl_Id="95">
+                                            <Cond/>
+                                            <LocList>
+                                                <Loc EndOffset="1598" SrcFileId="1" StartOffset="1583"/>
+                                            </LocList>
+                                            <StmntSeq Intrnl_Id="96">
+                                                <LocList>
+                                                    <Loc EndOffset="1598" SrcFileId="1" StartOffset="1583"/>
+                                                </LocList>
+                                                <BasicStmnt CovItemId="S25" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="97">
+                                                    <LocList>
+                                                        <Loc EndOffset="1598" SrcFileId="1" StartOffset="1583"/>
+                                                    </LocList>
+                                                </BasicStmnt>
+                                            </StmntSeq>
+                                        </Branch>
+                                        <Branch CovItemId="B14" CovItemPrefix="reparti.Produzione.java" Implct="true" Intrnl_Id="98">
+                                            <Cond/>
+                                            <LocList/>
+                                            <StmntSeq Intrnl_Id="99">
+                                                <LocList/>
+                                            </StmntSeq>
+                                        </Branch>
+                                        <Keyword EndOffset="1568" SrcFileId="1" StartOffset="1566"/>
+                                        <LocList>
+                                            <Loc EndOffset="1598" SrcFileId="1" StartOffset="1566"/>
+                                        </LocList>
+                                        <RootTerm CovItemId="C11" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="100">
+                                            <BasicBoolTerm Intrnl_Id="101">
+                                                <LocList>
+                                                    <Loc EndOffset="1576" SrcFileId="1" StartOffset="1570"/>
+                                                </LocList>
+                                            </BasicBoolTerm>
+                                        </RootTerm>
+                                    </CondStmnt>
+                                </StmntSeq>
+                                <Keyword EndOffset="1521" SrcFileId="1" StartOffset="1518"/>
+                                <LocList>
+                                    <Loc EndOffset="1603" SrcFileId="1" StartOffset="1518"/>
+                                </LocList>
+                                <RootTerm CovItemId="C10" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="102">
+                                    <BasicBoolTerm Intrnl_Id="103">
+                                        <LocList>
+                                            <Loc EndOffset="1553" SrcFileId="1" StartOffset="1532"/>
+                                        </LocList>
+                                    </BasicBoolTerm>
+                                </RootTerm>
+                            </LoopStmnt>
+                        </StmntSeq>
+                    </HierarchyLvl>
+                    <HierarchyLvl HierarchyLvlId="175" HierarchyLvlTypeId="6" Intrnl_Id="104" Name="avanzaLinea">
+                        <Header>
+                            <Loc EndOffset="1713" SrcFileId="1" StartOffset="1682"/>
+                        </Header>
+                        <LocList>
+                            <Loc EndOffset="2286" SrcFileId="1" StartOffset="1682"/>
+                        </LocList>
+                        <StmntSeq Intrnl_Id="105">
+                            <LocList>
+                                <Loc EndOffset="2282" SrcFileId="1" StartOffset="1719"/>
+                            </LocList>
+                            <CondStmnt CovItemId="S26" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="106">
+                                <Branch CovItemId="B15" CovItemPrefix="reparti.Produzione.java" Implct="false" Intrnl_Id="107">
+                                    <Cond>
+                                        <Loc EndOffset="1763" SrcFileId="1" StartOffset="1748"/>
+                                    </Cond>
+                                    <LocList>
+                                        <Loc EndOffset="1815" SrcFileId="1" StartOffset="1770"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="108">
+                                        <LocList>
+                                            <Loc EndOffset="1803" SrcFileId="1" StartOffset="1770"/>
+                                            <Loc EndOffset="1815" SrcFileId="1" StartOffset="1809"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S27" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="109">
+                                            <LocList>
+                                                <Loc EndOffset="1803" SrcFileId="1" StartOffset="1770"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                        <BasicStmnt CovItemId="S28" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="110">
+                                            <LocList>
+                                                <Loc EndOffset="1815" SrcFileId="1" StartOffset="1809"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Branch CovItemId="B16" CovItemPrefix="reparti.Produzione.java" Implct="false" Intrnl_Id="111">
+                                    <Cond>
+                                        <Loc EndOffset="1836" SrcFileId="1" StartOffset="1820"/>
+                                    </Cond>
+                                    <LocList>
+                                        <Loc EndOffset="1900" SrcFileId="1" StartOffset="1843"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="112">
+                                        <LocList>
+                                            <Loc EndOffset="1888" SrcFileId="1" StartOffset="1843"/>
+                                            <Loc EndOffset="1900" SrcFileId="1" StartOffset="1894"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S29" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="113">
+                                            <LocList>
+                                                <Loc EndOffset="1888" SrcFileId="1" StartOffset="1843"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                        <BasicStmnt CovItemId="S30" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="114">
+                                            <LocList>
+                                                <Loc EndOffset="1900" SrcFileId="1" StartOffset="1894"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Branch CovItemId="B17" CovItemPrefix="reparti.Produzione.java" Implct="false" Intrnl_Id="115">
+                                    <Cond>
+                                        <Loc EndOffset="1933" SrcFileId="1" StartOffset="1905"/>
+                                    </Cond>
+                                    <LocList>
+                                        <Loc EndOffset="2059" SrcFileId="1" StartOffset="1940"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="116">
+                                        <LocList>
+                                            <Loc EndOffset="2047" SrcFileId="1" StartOffset="1940"/>
+                                            <Loc EndOffset="2059" SrcFileId="1" StartOffset="2053"/>
+                                        </LocList>
+                                        <CondStmnt CovItemId="S31" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="117">
+                                            <Branch CovItemId="B18" CovItemPrefix="reparti.Produzione.java" Implct="false" Intrnl_Id="118">
+                                                <Cond/>
+                                                <LocList>
+                                                    <Loc EndOffset="2047" SrcFileId="1" StartOffset="1970"/>
+                                                </LocList>
+                                                <StmntSeq Intrnl_Id="119">
+                                                    <LocList>
+                                                        <Loc EndOffset="2010" SrcFileId="1" StartOffset="1978"/>
+                                                        <Loc EndOffset="2040" SrcFileId="1" StartOffset="2017"/>
+                                                    </LocList>
+                                                    <BasicStmnt CovItemId="S32" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="120">
+                                                        <LocList>
+                                                            <Loc EndOffset="2010" SrcFileId="1" StartOffset="1978"/>
+                                                        </LocList>
+                                                    </BasicStmnt>
+                                                    <BasicStmnt CovItemId="S33" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="121">
+                                                        <LocList>
+                                                            <Loc EndOffset="2040" SrcFileId="1" StartOffset="2017"/>
+                                                        </LocList>
+                                                    </BasicStmnt>
+                                                </StmntSeq>
+                                            </Branch>
+                                            <Branch CovItemId="B19" CovItemPrefix="reparti.Produzione.java" Implct="true" Intrnl_Id="122">
+                                                <Cond/>
+                                                <LocList/>
+                                                <StmntSeq Intrnl_Id="123">
+                                                    <LocList/>
+                                                </StmntSeq>
+                                            </Branch>
+                                            <Keyword EndOffset="1942" SrcFileId="1" StartOffset="1940"/>
+                                            <LocList>
+                                                <Loc EndOffset="2047" SrcFileId="1" StartOffset="1940"/>
+                                            </LocList>
+                                            <RootTerm CovItemId="C12" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="124">
+                                                <BasicBoolTerm Intrnl_Id="125">
+                                                    <LocList>
+                                                        <Loc EndOffset="1968" SrcFileId="1" StartOffset="1944"/>
+                                                    </LocList>
+                                                </BasicBoolTerm>
+                                            </RootTerm>
+                                        </CondStmnt>
+                                        <BasicStmnt CovItemId="S34" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="126">
+                                            <LocList>
+                                                <Loc EndOffset="2059" SrcFileId="1" StartOffset="2053"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Branch CovItemId="B20" CovItemPrefix="reparti.Produzione.java" Implct="false" Intrnl_Id="127">
+                                    <Cond>
+                                        <Loc EndOffset="2079" SrcFileId="1" StartOffset="2064"/>
+                                    </Cond>
+                                    <LocList>
+                                        <Loc EndOffset="2249" SrcFileId="1" StartOffset="2086"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="128">
+                                        <LocList>
+                                            <Loc EndOffset="2237" SrcFileId="1" StartOffset="2086"/>
+                                            <Loc EndOffset="2249" SrcFileId="1" StartOffset="2243"/>
+                                        </LocList>
+                                        <CondStmnt CovItemId="S35" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="129">
+                                            <Branch CovItemId="B21" CovItemPrefix="reparti.Produzione.java" Implct="false" Intrnl_Id="130">
+                                                <Cond/>
+                                                <LocList>
+                                                    <Loc EndOffset="2144" SrcFileId="1" StartOffset="2121"/>
+                                                </LocList>
+                                                <StmntSeq Intrnl_Id="131">
+                                                    <LocList>
+                                                        <Loc EndOffset="2144" SrcFileId="1" StartOffset="2121"/>
+                                                    </LocList>
+                                                    <BasicStmnt CovItemId="S36" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="132">
+                                                        <LocList>
+                                                            <Loc EndOffset="2144" SrcFileId="1" StartOffset="2121"/>
+                                                        </LocList>
+                                                    </BasicStmnt>
+                                                </StmntSeq>
+                                            </Branch>
+                                            <Branch CovItemId="B22" CovItemPrefix="reparti.Produzione.java" Implct="false" Intrnl_Id="133">
+                                                <Cond>
+                                                    <Loc EndOffset="2154" SrcFileId="1" StartOffset="2150"/>
+                                                </Cond>
+                                                <LocList>
+                                                    <Loc EndOffset="2237" SrcFileId="1" StartOffset="2155"/>
+                                                </LocList>
+                                                <StmntSeq Intrnl_Id="134">
+                                                    <LocList>
+                                                        <Loc EndOffset="2200" SrcFileId="1" StartOffset="2163"/>
+                                                        <Loc EndOffset="2230" SrcFileId="1" StartOffset="2207"/>
+                                                    </LocList>
+                                                    <BasicStmnt CovItemId="S37" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="135">
+                                                        <LocList>
+                                                            <Loc EndOffset="2200" SrcFileId="1" StartOffset="2163"/>
+                                                        </LocList>
+                                                    </BasicStmnt>
+                                                    <BasicStmnt CovItemId="S38" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="136">
+                                                        <LocList>
+                                                            <Loc EndOffset="2230" SrcFileId="1" StartOffset="2207"/>
+                                                        </LocList>
+                                                    </BasicStmnt>
+                                                </StmntSeq>
+                                            </Branch>
+                                            <Keyword EndOffset="2088" SrcFileId="1" StartOffset="2086"/>
+                                            <LocList>
+                                                <Loc EndOffset="2237" SrcFileId="1" StartOffset="2086"/>
+                                            </LocList>
+                                            <RootTerm CovItemId="C13" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="137">
+                                                <BasicBoolTerm Intrnl_Id="138">
+                                                    <LocList>
+                                                        <Loc EndOffset="2113" SrcFileId="1" StartOffset="2090"/>
+                                                    </LocList>
+                                                </BasicBoolTerm>
+                                            </RootTerm>
+                                        </CondStmnt>
+                                        <BasicStmnt CovItemId="S39" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="139">
+                                            <LocList>
+                                                <Loc EndOffset="2249" SrcFileId="1" StartOffset="2243"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Branch CovItemId="B23" CovItemPrefix="reparti.Produzione.java" Implct="false" Intrnl_Id="140">
+                                    <Cond>
+                                        <Loc EndOffset="2261" SrcFileId="1" StartOffset="2254"/>
+                                    </Cond>
+                                    <LocList>
+                                        <Loc EndOffset="2274" SrcFileId="1" StartOffset="2268"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="141">
+                                        <LocList>
+                                            <Loc EndOffset="2274" SrcFileId="1" StartOffset="2268"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S40" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="142">
+                                            <LocList>
+                                                <Loc EndOffset="2274" SrcFileId="1" StartOffset="2268"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Keyword EndOffset="1725" SrcFileId="1" StartOffset="1719"/>
+                                <LocList>
+                                    <Loc EndOffset="2282" SrcFileId="1" StartOffset="1719"/>
+                                </LocList>
+                            </CondStmnt>
+                        </StmntSeq>
+                    </HierarchyLvl>
+                    <HierarchyLvl HierarchyLvlId="176" HierarchyLvlTypeId="6" Intrnl_Id="143" Name="lucidaturaDisponibile">
+                        <Header>
+                            <Loc EndOffset="2398" SrcFileId="1" StartOffset="2354"/>
+                        </Header>
+                        <LocList>
+                            <Loc EndOffset="3177" SrcFileId="1" StartOffset="2354"/>
+                        </LocList>
+                        <StmntSeq Intrnl_Id="144">
+                            <LocList>
+                                <Loc EndOffset="3098" SrcFileId="1" StartOffset="2404"/>
+                                <Loc EndOffset="3172" SrcFileId="1" StartOffset="3160"/>
+                            </LocList>
+                            <LoopStmnt CovItemId="S41" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="145" MltplExecId="L5-2" MltplExecPrefix="reparti.Produzione.java" NvrExecId="L5-0" NvrExecPrefix="reparti.Produzione.java" OnceExecutedId="L5-1" OnceExecutedPrefix="reparti.Produzione.java" OptBodyExec="true">
+                                <StmntSeq Intrnl_Id="146">
+                                    <LocList>
+                                        <Loc EndOffset="2662" SrcFileId="1" StartOffset="2570"/>
+                                        <Loc EndOffset="2797" SrcFileId="1" StartOffset="2714"/>
+                                        <Loc EndOffset="3093" SrcFileId="1" StartOffset="2922"/>
+                                    </LocList>
+                                    <CondStmnt CovItemId="S42" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="147">
+                                        <Branch CovItemId="B24" CovItemPrefix="reparti.Produzione.java" Implct="false" Intrnl_Id="148">
+                                            <Cond/>
+                                            <LocList>
+                                                <Loc EndOffset="2662" SrcFileId="1" StartOffset="2649"/>
+                                            </LocList>
+                                            <StmntSeq Intrnl_Id="149">
+                                                <LocList>
+                                                    <Loc EndOffset="2662" SrcFileId="1" StartOffset="2649"/>
+                                                </LocList>
+                                                <BasicStmnt CovItemId="S43" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="150">
+                                                    <LocList>
+                                                        <Loc EndOffset="2662" SrcFileId="1" StartOffset="2649"/>
+                                                    </LocList>
+                                                </BasicStmnt>
+                                            </StmntSeq>
+                                        </Branch>
+                                        <Branch CovItemId="B25" CovItemPrefix="reparti.Produzione.java" Implct="true" Intrnl_Id="151">
+                                            <Cond/>
+                                            <LocList/>
+                                            <StmntSeq Intrnl_Id="152">
+                                                <LocList/>
+                                            </StmntSeq>
+                                        </Branch>
+                                        <Keyword EndOffset="2572" SrcFileId="1" StartOffset="2570"/>
+                                        <LocList>
+                                            <Loc EndOffset="2662" SrcFileId="1" StartOffset="2570"/>
+                                        </LocList>
+                                        <RootTerm CovItemId="C15" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="153">
+                                            <OpTerm BooleanOpId="2" Intrnl_Id="154">
+                                                <OpTerm BooleanOpId="2" Intrnl_Id="155">
+                                                    <BasicBoolTerm Intrnl_Id="156">
+                                                        <LocList>
+                                                            <Loc EndOffset="2606" SrcFileId="1" StartOffset="2574"/>
+                                                        </LocList>
+                                                    </BasicBoolTerm>
+                                                    <BasicBoolTerm Intrnl_Id="157">
+                                                        <LocList>
+                                                            <Loc EndOffset="2633" SrcFileId="1" StartOffset="2610"/>
+                                                        </LocList>
+                                                    </BasicBoolTerm>
+                                                    <LocList>
+                                                        <Loc EndOffset="2609" SrcFileId="1" StartOffset="2607"/>
+                                                    </LocList>
+                                                </OpTerm>
+                                                <BasicBoolTerm Intrnl_Id="158">
+                                                    <LocList>
+                                                        <Loc EndOffset="2642" SrcFileId="1" StartOffset="2637"/>
+                                                    </LocList>
+                                                </BasicBoolTerm>
+                                                <LocList>
+                                                    <Loc EndOffset="2636" SrcFileId="1" StartOffset="2634"/>
+                                                </LocList>
+                                            </OpTerm>
+                                        </RootTerm>
+                                    </CondStmnt>
+                                    <CondStmnt CovItemId="S44" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="159">
+                                        <Branch CovItemId="B26" CovItemPrefix="reparti.Produzione.java" Implct="false" Intrnl_Id="160">
+                                            <Cond/>
+                                            <LocList>
+                                                <Loc EndOffset="2797" SrcFileId="1" StartOffset="2784"/>
+                                            </LocList>
+                                            <StmntSeq Intrnl_Id="161">
+                                                <LocList>
+                                                    <Loc EndOffset="2797" SrcFileId="1" StartOffset="2784"/>
+                                                </LocList>
+                                                <BasicStmnt CovItemId="S45" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="162">
+                                                    <LocList>
+                                                        <Loc EndOffset="2797" SrcFileId="1" StartOffset="2784"/>
+                                                    </LocList>
+                                                </BasicStmnt>
+                                            </StmntSeq>
+                                        </Branch>
+                                        <Branch CovItemId="B27" CovItemPrefix="reparti.Produzione.java" Implct="true" Intrnl_Id="163">
+                                            <Cond/>
+                                            <LocList/>
+                                            <StmntSeq Intrnl_Id="164">
+                                                <LocList/>
+                                            </StmntSeq>
+                                        </Branch>
+                                        <Keyword EndOffset="2716" SrcFileId="1" StartOffset="2714"/>
+                                        <LocList>
+                                            <Loc EndOffset="2797" SrcFileId="1" StartOffset="2714"/>
+                                        </LocList>
+                                        <RootTerm CovItemId="C16" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="165">
+                                            <OpTerm BooleanOpId="2" Intrnl_Id="166">
+                                                <BasicBoolTerm Intrnl_Id="167">
+                                                    <LocList>
+                                                        <Loc EndOffset="2750" SrcFileId="1" StartOffset="2718"/>
+                                                    </LocList>
+                                                </BasicBoolTerm>
+                                                <BasicBoolTerm Intrnl_Id="168">
+                                                    <LocList>
+                                                        <Loc EndOffset="2777" SrcFileId="1" StartOffset="2754"/>
+                                                    </LocList>
+                                                </BasicBoolTerm>
+                                                <LocList>
+                                                    <Loc EndOffset="2753" SrcFileId="1" StartOffset="2751"/>
+                                                </LocList>
+                                            </OpTerm>
+                                        </RootTerm>
+                                    </CondStmnt>
+                                    <CondStmnt CovItemId="S46" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="169">
+                                        <Branch CovItemId="B28" CovItemPrefix="reparti.Produzione.java" Implct="false" Intrnl_Id="170">
+                                            <Cond/>
+                                            <LocList>
+                                                <Loc EndOffset="3093" SrcFileId="1" StartOffset="2996"/>
+                                            </LocList>
+                                            <StmntSeq Intrnl_Id="171">
+                                                <LocList>
+                                                    <Loc EndOffset="3040" SrcFileId="1" StartOffset="3003"/>
+                                                    <Loc EndOffset="3069" SrcFileId="1" StartOffset="3046"/>
+                                                    <Loc EndOffset="3087" SrcFileId="1" StartOffset="3075"/>
+                                                </LocList>
+                                                <BasicStmnt CovItemId="S47" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="172">
+                                                    <LocList>
+                                                        <Loc EndOffset="3040" SrcFileId="1" StartOffset="3003"/>
+                                                    </LocList>
+                                                </BasicStmnt>
+                                                <BasicStmnt CovItemId="S48" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="173">
+                                                    <LocList>
+                                                        <Loc EndOffset="3069" SrcFileId="1" StartOffset="3046"/>
+                                                    </LocList>
+                                                </BasicStmnt>
+                                                <BasicStmnt CovItemId="S49" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="174">
+                                                    <LocList>
+                                                        <Loc EndOffset="3087" SrcFileId="1" StartOffset="3075"/>
+                                                    </LocList>
+                                                </BasicStmnt>
+                                            </StmntSeq>
+                                        </Branch>
+                                        <Branch CovItemId="B29" CovItemPrefix="reparti.Produzione.java" Implct="true" Intrnl_Id="175">
+                                            <Cond/>
+                                            <LocList/>
+                                            <StmntSeq Intrnl_Id="176">
+                                                <LocList/>
+                                            </StmntSeq>
+                                        </Branch>
+                                        <Keyword EndOffset="2924" SrcFileId="1" StartOffset="2922"/>
+                                        <LocList>
+                                            <Loc EndOffset="3093" SrcFileId="1" StartOffset="2922"/>
+                                        </LocList>
+                                        <RootTerm CovItemId="C17" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="177">
+                                            <OpTerm BooleanOpId="2" Intrnl_Id="178">
+                                                <OpTerm BooleanOpId="2" Intrnl_Id="179">
+                                                    <BasicBoolTerm Intrnl_Id="180">
+                                                        <LocList>
+                                                            <Loc EndOffset="2958" SrcFileId="1" StartOffset="2926"/>
+                                                        </LocList>
+                                                    </BasicBoolTerm>
+                                                    <BasicBoolTerm Intrnl_Id="181">
+                                                        <LocList>
+                                                            <Loc EndOffset="2985" SrcFileId="1" StartOffset="2962"/>
+                                                        </LocList>
+                                                    </BasicBoolTerm>
+                                                    <LocList>
+                                                        <Loc EndOffset="2961" SrcFileId="1" StartOffset="2959"/>
+                                                    </LocList>
+                                                </OpTerm>
+                                                <BasicBoolTerm Intrnl_Id="182">
+                                                    <LocList>
+                                                        <Loc EndOffset="2994" SrcFileId="1" StartOffset="2989"/>
+                                                    </LocList>
+                                                </BasicBoolTerm>
+                                                <LocList>
+                                                    <Loc EndOffset="2988" SrcFileId="1" StartOffset="2986"/>
+                                                </LocList>
+                                            </OpTerm>
+                                        </RootTerm>
+                                    </CondStmnt>
+                                </StmntSeq>
+                                <Keyword EndOffset="2407" SrcFileId="1" StartOffset="2404"/>
+                                <LocList>
+                                    <Loc EndOffset="3098" SrcFileId="1" StartOffset="2404"/>
+                                </LocList>
+                                <RootTerm CovItemId="C14" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="183">
+                                    <BasicBoolTerm Intrnl_Id="184">
+                                        <LocList>
+                                            <Loc EndOffset="2441" SrcFileId="1" StartOffset="2420"/>
+                                        </LocList>
+                                    </BasicBoolTerm>
+                                </RootTerm>
+                            </LoopStmnt>
+                            <BasicStmnt CovItemId="S50" CovItemPrefix="reparti.Produzione.java" Intrnl_Id="185">
+                                <LocList>
+                                    <Loc EndOffset="3172" SrcFileId="1" StartOffset="3160"/>
+                                </LocList>
+                            </BasicStmnt>
+                        </StmntSeq>
+                    </HierarchyLvl>
+                </HierarchyLvl>
+            </HierarchyLvl>
+        </HierarchyLvl>
+    </MASTRoot>
+</TestSessionContainer>

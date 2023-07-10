@@ -9,6 +9,7 @@ public class Produzione {
 	int[] fase_lucidatura;
 	int n_linee;
 	
+	// inizializza n linee di produzione in ATTESA_POSIZIONAMENTO
 	public Produzione(int n) throws InvalidInputException {
 		if(n <= 0) throw new InvalidInputException();
 		n_linee = 3;
@@ -18,11 +19,13 @@ public class Produzione {
 		fase_lucidatura = new int[n_linee];
 	}
 	
+	// fa procedere di un passo le linee
 	public void avanza() {
 		for (int i=0; i < fase_linea.length; i++)
 			avanzaLinea(i);
 	}
 	
+	// posiziona un prodotto da lavorare sulla linea l (se possibile) e fa avanzare le linee
 	public void posiziona(int l) throws InvalidInputException {
 		if(l < 0 || l >= n_linee) throw new InvalidInputException();
 		if (fase_linea[l] == Fasi.ATTESA_POSIZIONAMENTO)
@@ -35,6 +38,7 @@ public class Produzione {
 		}
 	}
 	
+	// preleva un prodotto lavorato dalla linea l (se possibile) e fa avanzare le linee
 	public void preleva(int l) throws InvalidInputException {
 		if(l < 0 || l >= n_linee) throw new InvalidInputException();
 		if (fase_linea[l] == Fasi.ATTESA_PRELIEVO)
@@ -47,6 +51,7 @@ public class Produzione {
 		}
 	}
 	
+	// fa procedere la i-esima linea in base alla fase in cui si trova
 	private void avanzaLinea(int i) {
 		switch (fase_linea[i]) {
 			case RIFINITURA:
@@ -74,15 +79,16 @@ public class Produzione {
 		}
 	}
 	
+	// verifica se la i-esima linea può passare alla LUCIDATURA
 	private boolean lucidaturaDisponibile(int i) {
 		for (int j = 0; j < fase_linea.length; j++) {
-			//un altro è entrato nella seconda parte di LUCIDATURA in questa chiamata di preleva() o posiziona()
+			// un altro è entrato nella seconda parte di LUCIDATURA in questa chiamata di preleva(), posiziona() o avanza()
 			if (fase_linea[j] == Fasi.LUCIDATURA && fase_lucidatura[j] == 2 && j < i)
 				return false;
 			// un altro nella prima fase di LUCIDATURA
 			if (fase_linea[j] == Fasi.LUCIDATURA && fase_lucidatura[j] == 1)
 				return false;
-			//un altro è nella seconda parte di LUCIDATURA e ne uscirà in questa chiamata di preleva() o posiziona()
+			// un altro è nella seconda parte di LUCIDATURA e ne uscirà in questa chiamata di preleva(), posiziona() o avanza()
 			if (fase_linea[j] == Fasi.LUCIDATURA && fase_lucidatura[j] == 2 && j > i) {
 				fase_linea[j] = Fasi.ATTESA_PRELIEVO;
 				fase_lucidatura[j] = 0;
