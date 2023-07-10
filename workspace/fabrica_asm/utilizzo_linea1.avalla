@@ -1,0 +1,64 @@
+scenario utilizzo_linea1
+load produzione.asm
+
+check fase_linea(1) = ATTESA_POSIZIONAMENTO;
+check fase_linea(2) = ATTESA_POSIZIONAMENTO;
+check fase_linea(3) = ATTESA_POSIZIONAMENTO;
+
+set azione := POSIZIONA;
+set scelta_linea := 1;
+
+step
+
+check fase_linea(1) = RIFINITURA;
+check fase_linea(2) = ATTESA_POSIZIONAMENTO;
+check fase_linea(3) = ATTESA_POSIZIONAMENTO;
+
+set azione := NULLA;
+
+step
+
+check fase_linea(1) = COLORAZIONE;
+check fase_linea(2) = ATTESA_POSIZIONAMENTO;
+check fase_linea(3) = ATTESA_POSIZIONAMENTO;
+
+set azione := NULLA;
+
+step
+
+check fase_linea(1) = PREPARAZIONE_LUCIDATURA;
+check fase_linea(2) = ATTESA_POSIZIONAMENTO;
+check fase_linea(3) = ATTESA_POSIZIONAMENTO;
+
+set azione := NULLA;
+
+step
+
+check fase_linea(1) = LUCIDATURA;
+check fase_linea(2) = ATTESA_POSIZIONAMENTO;
+check fase_linea(3) = ATTESA_POSIZIONAMENTO;
+
+set azione := NULLA;
+
+step
+
+check fase_linea(1) = LUCIDATURA;
+check fase_linea(2) = ATTESA_POSIZIONAMENTO;
+check fase_linea(3) = ATTESA_POSIZIONAMENTO;
+
+set azione := NULLA;
+
+step
+
+check fase_linea(1) = ATTESA_PRELIEVO;
+check fase_linea(2) = ATTESA_POSIZIONAMENTO;
+check fase_linea(3) = ATTESA_POSIZIONAMENTO;
+
+set azione := PRELEVA;
+set scelta_linea := 1;
+
+step
+
+check fase_linea(1) = ATTESA_POSIZIONAMENTO;
+check fase_linea(2) = ATTESA_POSIZIONAMENTO;
+check fase_linea(3) = ATTESA_POSIZIONAMENTO;
