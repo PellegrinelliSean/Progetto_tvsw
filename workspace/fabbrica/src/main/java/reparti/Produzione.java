@@ -1,7 +1,5 @@
 package reparti;
 
-import fabbrica.InvalidInputException;
-
 enum Fasi {ATTESA_POSIZIONAMENTO, RIFINITURA, COLORAZIONE, PREPARAZIONE_LUCIDATURA, LUCIDATURA, ATTESA_PRELIEVO}
 
 public class Produzione {

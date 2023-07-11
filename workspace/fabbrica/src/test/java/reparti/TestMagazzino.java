@@ -5,8 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import fabbrica.ScaffalePienoException;
-
 // I test sono la traduzione di quelli generati con ATGT
 public class TestMagazzino {
 	Magazzino m;
@@ -17,53 +15,108 @@ public class TestMagazzino {
 	}
 		
 	@Test
-	public void testBR_r_Main_FF() {
+	public void testBR_r_Main_FFF() {
 		assertEquals(0, m.scaffale_semilavorati);
 		assertEquals(0, m.scaffale_prod_finiti);
 		
-		try {m.compra();} catch (ScaffalePienoException e) { fail(); }
+		m.lavora();
+		m.compra();
+		
 		assertEquals(1, m.scaffale_semilavorati);
-		assertEquals(0, m.scaffale_prod_finiti);
-	}
-
-	@Test
-	public void testBR_r_Main_FT() {
+		
+		m.lavora();
+		
 		assertEquals(0, m.scaffale_semilavorati);
-		assertEquals(0, m.scaffale_prod_finiti);
-		
-		for(int i = 1; i <= 10; i++) {
-			try {m.compra();} catch (ScaffalePienoException e) { fail(); }
-			assertEquals(i, m.scaffale_semilavorati);
-		}
-		
-		try {m.compra(); fail();} catch (ScaffalePienoException e) {}
 	}
 	
 	@Test
-	public void testBR_r_Main_TF() {
+	public void testBR_r_Main_FFT() {
 		assertEquals(0, m.scaffale_semilavorati);
 		assertEquals(0, m.scaffale_prod_finiti);
 		
-		try {m.compra();} catch (ScaffalePienoException e) { fail(); }
-		assertEquals(1, m.scaffale_semilavorati);
+		m.lavora();
 		
-		try {m.riposiziona();} catch (ScaffalePienoException e) { fail(); }
+		assertEquals(0, m.scaffale_semilavorati);
+		assertEquals(0, m.scaffale_prod_finiti);
+	}
+	
+	@Test
+	public void testBR_r_Main_FTF() {
+		assertEquals(0, m.scaffale_semilavorati);
+		assertEquals(0, m.scaffale_prod_finiti);
+		
+		m.lavora();
+		m.compra();
+		
+		assertEquals(1, m.scaffale_semilavorati);
+	}
+
+	@Test
+	public void testBR_r_Main_FTT() {
+		assertEquals(0, m.scaffale_semilavorati);
+		assertEquals(0, m.scaffale_prod_finiti);
+		
+		m.lavora();
+		
+		for(int i = 1; i <= 10; i++) {
+			m.compra();
+			assertEquals(i, m.scaffale_semilavorati);
+		}
+		
+		m.compra();
+		assertEquals(10, m.scaffale_semilavorati);
+	}
+	
+	@Test
+	public void testBR_r_Main_TFF() {
+		assertEquals(0, m.scaffale_semilavorati);
+		assertEquals(0, m.scaffale_prod_finiti);
+		
+		m.lavora();
+		m.riposiziona();
+		
+		assertEquals(1, m.scaffale_prod_finiti);
+		
+		m.vendi();
+		
+		assertEquals(0, m.scaffale_prod_finiti);
+	}
+	
+	@Test
+	public void testBR_r_Main_TFT() {
+		assertEquals(0, m.scaffale_semilavorati);
+		assertEquals(0, m.scaffale_prod_finiti);
+		
+		m.lavora();
+		m.vendi();
+		
+		assertEquals(0, m.scaffale_prod_finiti);
+	}
+	
+	@Test
+	public void testBR_r_Main_TTF() {
+		assertEquals(0, m.scaffale_semilavorati);
+		assertEquals(0, m.scaffale_prod_finiti);
+		
+		m.lavora();
+		m.riposiziona();
+		
 		assertEquals(1, m.scaffale_prod_finiti);
 	}
 	
 	@Test
-	public void testBR_r_Main_TT() {
+	public void testBR_r_Main_TTT() {
 		assertEquals(0, m.scaffale_semilavorati);
 		assertEquals(0, m.scaffale_prod_finiti);
 		
-		try {m.compra();} catch (ScaffalePienoException e) { fail(); }
-		assertEquals(1, m.scaffale_semilavorati);
+		m.lavora();
 		
 		for(int i = 1; i <= 10; i++) {
-			try {m.riposiziona();} catch (ScaffalePienoException e) { fail(); }
+			m.riposiziona();
 			assertEquals(i, m.scaffale_prod_finiti);
 		}
 		
-		try {m.riposiziona(); fail();} catch (ScaffalePienoException e) {}
+		m.riposiziona();
+		assertEquals(10, m.scaffale_prod_finiti);
 	}
 }

@@ -1,0 +1,13 @@
+scenario testBR_r_Main_FFT
+
+load ./..\magazzino.asm
+
+//// test name test@BR_r_Main_FFT
+//// generated for (test goal): BR_r_Main_FFT: not scelta_scaffale and (not azione and (scaffale_semilavorati <= 0))
+check scaffale_prod_finiti = 0;
+check scaffale_semilavorati = 0;
+set scelta_scaffale := false;
+set azione := false;
+step
+check scaffale_prod_finiti = 0;
+check scaffale_semilavorati = 0;

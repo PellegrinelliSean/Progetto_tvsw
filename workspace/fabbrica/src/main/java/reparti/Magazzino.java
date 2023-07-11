@@ -1,7 +1,5 @@
 package reparti;
 
-import fabbrica.ScaffalePienoException;
-
 public class Magazzino {
 	int scaffale_prod_finiti;
 	int scaffale_semilavorati;
@@ -13,18 +11,35 @@ public class Magazzino {
 		scaffale_semilavorati = 0;
 	}
 
-	public void compra() throws ScaffalePienoException {
+	public boolean compra() {
 		if (scaffale_semilavorati >= dim_scaffali)
-			throw new ScaffalePienoException();
+			return false;
 		else
 			scaffale_semilavorati++;
-
+		return true;
+	}
+	
+	public boolean lavora() {
+		if (scaffale_semilavorati <= 0)
+			return false;
+		else
+			scaffale_semilavorati--;
+		return true;
 	}
 
-	public void riposiziona() throws ScaffalePienoException {
+	public boolean riposiziona() {
 		if (scaffale_prod_finiti >= dim_scaffali)
-			throw new ScaffalePienoException();
+			return false;
 		else
 			scaffale_prod_finiti++;
+		return true;
+	}
+	
+	public boolean vendi() {
+		if (scaffale_prod_finiti <= 0)
+			return false;
+		else
+			scaffale_prod_finiti--;
+		return true;
 	}
 }

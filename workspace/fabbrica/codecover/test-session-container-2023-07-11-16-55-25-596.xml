@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?><TestSessionContainer xmlns="http://www.codecover.org/xml/testsession-container" Date="1689087325583" TestSessionContainerId="bbbe3025-9fa2-47af-ae07-a386097eeef0" version="1.0">
+    <SrcFileList>
+        <SrcFile Content="package reparti;&#13;&#10;&#13;&#10;public class Magazzino {&#13;&#10;&#9;int scaffale_prod_finiti;&#13;&#10;&#9;int scaffale_semilavorati;&#13;&#10;&#9;int dim_scaffali;&#13;&#10;&#13;&#10;&#9;public Magazzino(int dim) {&#13;&#10;&#9;&#9;dim_scaffali = dim;&#13;&#10;&#9;&#9;scaffale_prod_finiti = 0;&#13;&#10;&#9;&#9;scaffale_semilavorati = 0;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public boolean compra() {&#13;&#10;&#9;&#9;if (scaffale_semilavorati &gt;= dim_scaffali)&#13;&#10;&#9;&#9;&#9;return false;&#13;&#10;&#9;&#9;else&#13;&#10;&#9;&#9;&#9;scaffale_semilavorati++;&#13;&#10;&#9;&#9;return true;&#13;&#10;&#9;}&#13;&#10;&#9;&#13;&#10;&#9;public boolean lavora() {&#13;&#10;&#9;&#9;if (scaffale_semilavorati &lt;= 0)&#13;&#10;&#9;&#9;&#9;return false;&#13;&#10;&#9;&#9;else&#13;&#10;&#9;&#9;&#9;scaffale_semilavorati--;&#13;&#10;&#9;&#9;return true;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public boolean riposiziona() {&#13;&#10;&#9;&#9;if (scaffale_prod_finiti &gt;= dim_scaffali)&#13;&#10;&#9;&#9;&#9;return false;&#13;&#10;&#9;&#9;else&#13;&#10;&#9;&#9;&#9;scaffale_prod_finiti++;&#13;&#10;&#9;&#9;return true;&#13;&#10;&#9;}&#13;&#10;&#9;&#13;&#10;&#9;public boolean vendi() {&#13;&#10;&#9;&#9;if (scaffale_prod_finiti &lt;= 0)&#13;&#10;&#9;&#9;&#9;return false;&#13;&#10;&#9;&#9;else&#13;&#10;&#9;&#9;&#9;scaffale_prod_finiti--;&#13;&#10;&#9;&#9;return true;&#13;&#10;&#9;}&#13;&#10;}&#13;&#10;" Filename="Magazzino.java" Intrnl_Id="1"/>
+    </SrcFileList>
+    <CritList>
+        <CritListEntry Name="org.codecover.model.utils.criteria.ConditionCoverage" PluginName="org.codecover"/>
+        <CritListEntry Name="org.codecover.model.utils.criteria.BranchCoverage" PluginName="org.codecover"/>
+        <CritListEntry Name="org.codecover.model.utils.criteria.StatementCoverage" PluginName="org.codecover"/>
+    </CritList>
+    <BoolOpList/>
+    <HierarchyLvlTypeList>
+        <HierarchyLvlType EnglishName="package" IntrnlName="package" Intrnl_Id="2"/>
+        <HierarchyLvlType EnglishName="method" IntrnlName="method" Intrnl_Id="3"/>
+        <HierarchyLvlType EnglishName="class" IntrnlName="class" Intrnl_Id="4"/>
+        <HierarchyLvlType EnglishName="default package" IntrnlName="default package" Intrnl_Id="5"/>
+    </HierarchyLvlTypeList>
+    <MASTRoot>
+        <HierarchyLvl HierarchyLvlId="66" HierarchyLvlTypeId="5" Intrnl_Id="6" Name="default package">
+            <Header/>
+            <LocList/>
+            <HierarchyLvl HierarchyLvlId="65" HierarchyLvlTypeId="2" Intrnl_Id="7" Name="reparti">
+                <Header/>
+                <LocList/>
+                <HierarchyLvl HierarchyLvlId="64" HierarchyLvlTypeId="4" Intrnl_Id="8" Name="Magazzino">
+                    <Header>
+                        <Loc EndOffset="42" SrcFileId="1" StartOffset="20"/>
+                    </Header>
+                    <LocList>
+                        <Loc EndOffset="826" SrcFileId="1" StartOffset="20"/>
+                    </LocList>
+                    <HierarchyLvl HierarchyLvlId="59" HierarchyLvlTypeId="3" Intrnl_Id="9" Name="Magazzino">
+                        <Header>
+                            <Loc EndOffset="151" SrcFileId="1" StartOffset="126"/>
+                        </Header>
+                        <LocList>
+                            <Loc EndOffset="239" SrcFileId="1" StartOffset="126"/>
+                        </LocList>
+                        <StmntSeq Intrnl_Id="10">
+                            <LocList>
+                                <Loc EndOffset="176" SrcFileId="1" StartOffset="157"/>
+                                <Loc EndOffset="205" SrcFileId="1" StartOffset="180"/>
+                                <Loc EndOffset="235" SrcFileId="1" StartOffset="209"/>
+                            </LocList>
+                            <BasicStmnt CovItemId="S1" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="11">
+                                <LocList>
+                                    <Loc EndOffset="176" SrcFileId="1" StartOffset="157"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S2" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="12">
+                                <LocList>
+                                    <Loc EndOffset="205" SrcFileId="1" StartOffset="180"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S3" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="13">
+                                <LocList>
+                                    <Loc EndOffset="235" SrcFileId="1" StartOffset="209"/>
+                                </LocList>
+                            </BasicStmnt>
+                        </StmntSeq>
+                    </HierarchyLvl>
+                    <HierarchyLvl HierarchyLvlId="60" HierarchyLvlTypeId="3" Intrnl_Id="14" Name="compra">
+                        <Header>
+                            <Loc EndOffset="267" SrcFileId="1" StartOffset="244"/>
+                        </Header>
+                        <LocList>
+                            <Loc EndOffset="390" SrcFileId="1" StartOffset="244"/>
+                        </LocList>
+                        <StmntSeq Intrnl_Id="15">
+                            <LocList>
+                                <Loc EndOffset="370" SrcFileId="1" StartOffset="273"/>
+                                <Loc EndOffset="386" SrcFileId="1" StartOffset="374"/>
+                            </LocList>
+                            <CondStmnt CovItemId="S4" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="16">
+                                <Branch CovItemId="B1" CovItemPrefix="reparti.Magazzino.java" Implct="false" Intrnl_Id="17">
+                                    <Cond/>
+                                    <LocList>
+                                        <Loc EndOffset="333" SrcFileId="1" StartOffset="320"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="18">
+                                        <LocList>
+                                            <Loc EndOffset="333" SrcFileId="1" StartOffset="320"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S5" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="19">
+                                            <LocList>
+                                                <Loc EndOffset="333" SrcFileId="1" StartOffset="320"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Branch CovItemId="B2" CovItemPrefix="reparti.Magazzino.java" Implct="false" Intrnl_Id="20">
+                                    <Cond>
+                                        <Loc EndOffset="341" SrcFileId="1" StartOffset="337"/>
+                                    </Cond>
+                                    <LocList>
+                                        <Loc EndOffset="370" SrcFileId="1" StartOffset="346"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="21">
+                                        <LocList>
+                                            <Loc EndOffset="370" SrcFileId="1" StartOffset="346"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S6" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="22">
+                                            <LocList>
+                                                <Loc EndOffset="370" SrcFileId="1" StartOffset="346"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Keyword EndOffset="275" SrcFileId="1" StartOffset="273"/>
+                                <LocList>
+                                    <Loc EndOffset="370" SrcFileId="1" StartOffset="273"/>
+                                </LocList>
+                                <RootTerm CovItemId="C1" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="23">
+                                    <BasicBoolTerm Intrnl_Id="24">
+                                        <LocList>
+                                            <Loc EndOffset="314" SrcFileId="1" StartOffset="277"/>
+                                        </LocList>
+                                    </BasicBoolTerm>
+                                </RootTerm>
+                            </CondStmnt>
+                            <BasicStmnt CovItemId="S7" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="25">
+                                <LocList>
+                                    <Loc EndOffset="386" SrcFileId="1" StartOffset="374"/>
+                                </LocList>
+                            </BasicStmnt>
+                        </StmntSeq>
+                    </HierarchyLvl>
+                    <HierarchyLvl HierarchyLvlId="61" HierarchyLvlTypeId="3" Intrnl_Id="26" Name="lavora">
+                        <Header>
+                            <Loc EndOffset="419" SrcFileId="1" StartOffset="396"/>
+                        </Header>
+                        <LocList>
+                            <Loc EndOffset="531" SrcFileId="1" StartOffset="396"/>
+                        </LocList>
+                        <StmntSeq Intrnl_Id="27">
+                            <LocList>
+                                <Loc EndOffset="511" SrcFileId="1" StartOffset="425"/>
+                                <Loc EndOffset="527" SrcFileId="1" StartOffset="515"/>
+                            </LocList>
+                            <CondStmnt CovItemId="S8" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="28">
+                                <Branch CovItemId="B3" CovItemPrefix="reparti.Magazzino.java" Implct="false" Intrnl_Id="29">
+                                    <Cond/>
+                                    <LocList>
+                                        <Loc EndOffset="474" SrcFileId="1" StartOffset="461"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="30">
+                                        <LocList>
+                                            <Loc EndOffset="474" SrcFileId="1" StartOffset="461"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S9" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="31">
+                                            <LocList>
+                                                <Loc EndOffset="474" SrcFileId="1" StartOffset="461"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Branch CovItemId="B4" CovItemPrefix="reparti.Magazzino.java" Implct="false" Intrnl_Id="32">
+                                    <Cond>
+                                        <Loc EndOffset="482" SrcFileId="1" StartOffset="478"/>
+                                    </Cond>
+                                    <LocList>
+                                        <Loc EndOffset="511" SrcFileId="1" StartOffset="487"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="33">
+                                        <LocList>
+                                            <Loc EndOffset="511" SrcFileId="1" StartOffset="487"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S10" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="34">
+                                            <LocList>
+                                                <Loc EndOffset="511" SrcFileId="1" StartOffset="487"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Keyword EndOffset="427" SrcFileId="1" StartOffset="425"/>
+                                <LocList>
+                                    <Loc EndOffset="511" SrcFileId="1" StartOffset="425"/>
+                                </LocList>
+                                <RootTerm CovItemId="C2" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="35">
+                                    <BasicBoolTerm Intrnl_Id="36">
+                                        <LocList>
+                                            <Loc EndOffset="455" SrcFileId="1" StartOffset="429"/>
+                                        </LocList>
+                                    </BasicBoolTerm>
+                                </RootTerm>
+                            </CondStmnt>
+                            <BasicStmnt CovItemId="S11" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="37">
+                                <LocList>
+                                    <Loc EndOffset="527" SrcFileId="1" StartOffset="515"/>
+                                </LocList>
+                            </BasicStmnt>
+                        </StmntSeq>
+                    </HierarchyLvl>
+                    <HierarchyLvl HierarchyLvlId="62" HierarchyLvlTypeId="3" Intrnl_Id="38" Name="riposiziona">
+                        <Header>
+                            <Loc EndOffset="564" SrcFileId="1" StartOffset="536"/>
+                        </Header>
+                        <LocList>
+                            <Loc EndOffset="685" SrcFileId="1" StartOffset="536"/>
+                        </LocList>
+                        <StmntSeq Intrnl_Id="39">
+                            <LocList>
+                                <Loc EndOffset="665" SrcFileId="1" StartOffset="570"/>
+                                <Loc EndOffset="681" SrcFileId="1" StartOffset="669"/>
+                            </LocList>
+                            <CondStmnt CovItemId="S12" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="40">
+                                <Branch CovItemId="B5" CovItemPrefix="reparti.Magazzino.java" Implct="false" Intrnl_Id="41">
+                                    <Cond/>
+                                    <LocList>
+                                        <Loc EndOffset="629" SrcFileId="1" StartOffset="616"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="42">
+                                        <LocList>
+                                            <Loc EndOffset="629" SrcFileId="1" StartOffset="616"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S13" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="43">
+                                            <LocList>
+                                                <Loc EndOffset="629" SrcFileId="1" StartOffset="616"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Branch CovItemId="B6" CovItemPrefix="reparti.Magazzino.java" Implct="false" Intrnl_Id="44">
+                                    <Cond>
+                                        <Loc EndOffset="637" SrcFileId="1" StartOffset="633"/>
+                                    </Cond>
+                                    <LocList>
+                                        <Loc EndOffset="665" SrcFileId="1" StartOffset="642"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="45">
+                                        <LocList>
+                                            <Loc EndOffset="665" SrcFileId="1" StartOffset="642"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S14" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="46">
+                                            <LocList>
+                                                <Loc EndOffset="665" SrcFileId="1" StartOffset="642"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Keyword EndOffset="572" SrcFileId="1" StartOffset="570"/>
+                                <LocList>
+                                    <Loc EndOffset="665" SrcFileId="1" StartOffset="570"/>
+                                </LocList>
+                                <RootTerm CovItemId="C3" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="47">
+                                    <BasicBoolTerm Intrnl_Id="48">
+                                        <LocList>
+                                            <Loc EndOffset="610" SrcFileId="1" StartOffset="574"/>
+                                        </LocList>
+                                    </BasicBoolTerm>
+                                </RootTerm>
+                            </CondStmnt>
+                            <BasicStmnt CovItemId="S15" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="49">
+                                <LocList>
+                                    <Loc EndOffset="681" SrcFileId="1" StartOffset="669"/>
+                                </LocList>
+                            </BasicStmnt>
+                        </StmntSeq>
+                    </HierarchyLvl>
+                    <HierarchyLvl HierarchyLvlId="63" HierarchyLvlTypeId="3" Intrnl_Id="50" Name="vendi">
+                        <Header>
+                            <Loc EndOffset="713" SrcFileId="1" StartOffset="691"/>
+                        </Header>
+                        <LocList>
+                            <Loc EndOffset="823" SrcFileId="1" StartOffset="691"/>
+                        </LocList>
+                        <StmntSeq Intrnl_Id="51">
+                            <LocList>
+                                <Loc EndOffset="803" SrcFileId="1" StartOffset="719"/>
+                                <Loc EndOffset="819" SrcFileId="1" StartOffset="807"/>
+                            </LocList>
+                            <CondStmnt CovItemId="S16" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="52">
+                                <Branch CovItemId="B7" CovItemPrefix="reparti.Magazzino.java" Implct="false" Intrnl_Id="53">
+                                    <Cond/>
+                                    <LocList>
+                                        <Loc EndOffset="767" SrcFileId="1" StartOffset="754"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="54">
+                                        <LocList>
+                                            <Loc EndOffset="767" SrcFileId="1" StartOffset="754"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S17" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="55">
+                                            <LocList>
+                                                <Loc EndOffset="767" SrcFileId="1" StartOffset="754"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Branch CovItemId="B8" CovItemPrefix="reparti.Magazzino.java" Implct="false" Intrnl_Id="56">
+                                    <Cond>
+                                        <Loc EndOffset="775" SrcFileId="1" StartOffset="771"/>
+                                    </Cond>
+                                    <LocList>
+                                        <Loc EndOffset="803" SrcFileId="1" StartOffset="780"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="57">
+                                        <LocList>
+                                            <Loc EndOffset="803" SrcFileId="1" StartOffset="780"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S18" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="58">
+                                            <LocList>
+                                                <Loc EndOffset="803" SrcFileId="1" StartOffset="780"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Keyword EndOffset="721" SrcFileId="1" StartOffset="719"/>
+                                <LocList>
+                                    <Loc EndOffset="803" SrcFileId="1" StartOffset="719"/>
+                                </LocList>
+                                <RootTerm CovItemId="C4" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="59">
+                                    <BasicBoolTerm Intrnl_Id="60">
+                                        <LocList>
+                                            <Loc EndOffset="748" SrcFileId="1" StartOffset="723"/>
+                                        </LocList>
+                                    </BasicBoolTerm>
+                                </RootTerm>
+                            </CondStmnt>
+                            <BasicStmnt CovItemId="S19" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="61">
+                                <LocList>
+                                    <Loc EndOffset="819" SrcFileId="1" StartOffset="807"/>
+                                </LocList>
+                            </BasicStmnt>
+                        </StmntSeq>
+                    </HierarchyLvl>
+                </HierarchyLvl>
+            </HierarchyLvl>
+        </HierarchyLvl>
+    </MASTRoot>
+    <TestSession Comment="" Date="1689087327016" Name="11 lug 2023, 16:55:26">
+        <TestCase Comment="" Date="1689087326910" Name="reparti.TestMagazzino:testBR_r_Main_FFF">
+            <CovList>
+                <CovPrefix CovItemPrefix="reparti.Magazzino.java">
+                    <Cov CovItemId="B2" Value="1"/>
+                    <Cov CovItemId="B3" Value="1"/>
+                    <Cov CovItemId="B4" Value="1"/>
+                    <Cov CovItemId="S1" Value="1"/>
+                    <Cov CovItemId="S10" Value="1"/>
+                    <Cov CovItemId="S11" Value="1"/>
+                    <Cov CovItemId="S2" Value="1"/>
+                    <Cov CovItemId="S3" Value="1"/>
+                    <Cov CovItemId="S4" Value="1"/>
+                    <Cov CovItemId="S6" Value="1"/>
+                    <Cov CovItemId="S7" Value="1"/>
+                    <Cov CovItemId="S8" Value="2"/>
+                    <Cov CovItemId="S9" Value="1"/>
+                </CovPrefix>
+            </CovList>
+            <AssgnmntList>
+                <AssgnmntPrefix RootTermCovItemPrefix="reparti.Magazzino.java">
+                    <AssgnmntListEntry Length="1" RootTermCovItemId="C1">
+                        <MapEntry BoolAssgnmnt="0" Value="1"/>
+                    </AssgnmntListEntry>
+                    <AssgnmntListEntry Length="1" RootTermCovItemId="C2">
+                        <MapEntry BoolAssgnmnt="0" Value="1"/>
+                        <MapEntry BoolAssgnmnt="1" Value="1"/>
+                    </AssgnmntListEntry>
+                </AssgnmntPrefix>
+            </AssgnmntList>
+            <ObjMetaDataList/>
+            <MetaDataList/>
+        </TestCase>
+        <TestCase Comment="" Date="1689087326917" Name="reparti.TestMagazzino:testBR_r_Main_FFT">
+            <CovList>
+                <CovPrefix CovItemPrefix="reparti.Magazzino.java">
+                    <Cov CovItemId="B3" Value="1"/>
+                    <Cov CovItemId="S1" Value="1"/>
+                    <Cov CovItemId="S2" Value="1"/>
+                    <Cov CovItemId="S3" Value="1"/>
+                    <Cov CovItemId="S8" Value="1"/>
+                    <Cov CovItemId="S9" Value="1"/>
+                </CovPrefix>
+            </CovList>
+            <AssgnmntList>
+                <AssgnmntPrefix RootTermCovItemPrefix="reparti.Magazzino.java">
+                    <AssgnmntListEntry Length="1" RootTermCovItemId="C2">
+                        <MapEntry BoolAssgnmnt="1" Value="1"/>
+                    </AssgnmntListEntry>
+                </AssgnmntPrefix>
+            </AssgnmntList>
+            <ObjMetaDataList/>
+            <MetaDataList/>
+        </TestCase>
+        <TestCase Comment="" Date="1689087326919" Name="reparti.TestMagazzino:testBR_r_Main_FTF">
+            <CovList>
+                <CovPrefix CovItemPrefix="reparti.Magazzino.java">
+                    <Cov CovItemId="B2" Value="1"/>
+                    <Cov CovItemId="B3" Value="1"/>
+                    <Cov CovItemId="S1" Value="1"/>
+                    <Cov CovItemId="S2" Value="1"/>
+                    <Cov CovItemId="S3" Value="1"/>
+                    <Cov CovItemId="S4" Value="1"/>
+                    <Cov CovItemId="S6" Value="1"/>
+                    <Cov CovItemId="S7" Value="1"/>
+                    <Cov CovItemId="S8" Value="1"/>
+                    <Cov CovItemId="S9" Value="1"/>
+                </CovPrefix>
+            </CovList>
+            <AssgnmntList>
+                <AssgnmntPrefix RootTermCovItemPrefix="reparti.Magazzino.java">
+                    <AssgnmntListEntry Length="1" RootTermCovItemId="C1">
+                        <MapEntry BoolAssgnmnt="0" Value="1"/>
+                    </AssgnmntListEntry>
+                    <AssgnmntListEntry Length="1" RootTermCovItemId="C2">
+                        <MapEntry BoolAssgnmnt="1" Value="1"/>
+                    </AssgnmntListEntry>
+                </AssgnmntPrefix>
+            </AssgnmntList>
+            <ObjMetaDataList/>
+            <MetaDataList/>
+        </TestCase>
+        <TestCase Comment="" Date="1689087326920" Name="reparti.TestMagazzino:testBR_r_Main_FTT">
+            <CovList>
+                <CovPrefix CovItemPrefix="reparti.Magazzino.java">
+                    <Cov CovItemId="B1" Value="1"/>
+                    <Cov CovItemId="B2" Value="10"/>
+                    <Cov CovItemId="B3" Value="1"/>
+                    <Cov CovItemId="S1" Value="1"/>
+                    <Cov CovItemId="S2" Value="1"/>
+                    <Cov CovItemId="S3" Value="1"/>
+                    <Cov CovItemId="S4" Value="11"/>
+                    <Cov CovItemId="S5" Value="1"/>
+                    <Cov CovItemId="S6" Value="10"/>
+                    <Cov CovItemId="S7" Value="10"/>
+                    <Cov CovItemId="S8" Value="1"/>
+                    <Cov CovItemId="S9" Value="1"/>
+                </CovPrefix>
+            </CovList>
+            <AssgnmntList>
+                <AssgnmntPrefix RootTermCovItemPrefix="reparti.Magazzino.java">
+                    <AssgnmntListEntry Length="1" RootTermCovItemId="C1">
+                        <MapEntry BoolAssgnmnt="0" Value="10"/>
+                        <MapEntry BoolAssgnmnt="1" Value="1"/>
+                    </AssgnmntListEntry>
+                    <AssgnmntListEntry Length="1" RootTermCovItemId="C2">
+                        <MapEntry BoolAssgnmnt="1" Value="1"/>
+                    </AssgnmntListEntry>
+                </AssgnmntPrefix>
+            </AssgnmntList>
+            <ObjMetaDataList/>
+            <MetaDataList/>
+        </TestCase>
+        <TestCase Comment="" Date="1689087326921" Name="reparti.TestMagazzino:testBR_r_Main_TFF">
+            <CovList>
+                <CovPrefix CovItemPrefix="reparti.Magazzino.java">
+                    <Cov CovItemId="B3" Value="1"/>
+                    <Cov CovItemId="B6" Value="1"/>
+                    <Cov CovItemId="B8" Value="1"/>
+                    <Cov CovItemId="S1" Value="1"/>
+                    <Cov CovItemId="S12" Value="1"/>
+                    <Cov CovItemId="S14" Value="1"/>
+                    <Cov CovItemId="S15" Value="1"/>
+                    <Cov CovItemId="S16" Value="1"/>
+                    <Cov CovItemId="S18" Value="1"/>
+                    <Cov CovItemId="S19" Value="1"/>
+                    <Cov CovItemId="S2" Value="1"/>
+                    <Cov CovItemId="S3" Value="1"/>
+                    <Cov CovItemId="S8" Value="1"/>
+                    <Cov CovItemId="S9" Value="1"/>
+                </CovPrefix>
+            </CovList>
+            <AssgnmntList>
+                <AssgnmntPrefix RootTermCovItemPrefix="reparti.Magazzino.java">
+                    <AssgnmntListEntry Length="1" RootTermCovItemId="C2">
+                        <MapEntry BoolAssgnmnt="1" Value="1"/>
+                    </AssgnmntListEntry>
+                    <AssgnmntListEntry Length="1" RootTermCovItemId="C3">
+                        <MapEntry BoolAssgnmnt="0" Value="1"/>
+                    </AssgnmntListEntry>
+                    <AssgnmntListEntry Length="1" RootTermCovItemId="C4">
+                        <MapEntry BoolAssgnmnt="0" Value="1"/>
+                    </AssgnmntListEntry>
+                </AssgnmntPrefix>
+            </AssgnmntList>
+            <ObjMetaDataList/>
+            <MetaDataList/>
+        </TestCase>
+        <TestCase Comment="" Date="1689087326922" Name="reparti.TestMagazzino:testBR_r_Main_TFT">
+            <CovList>
+                <CovPrefix CovItemPrefix="reparti.Magazzino.java">
+                    <Cov CovItemId="B3" Value="1"/>
+                    <Cov CovItemId="B7" Value="1"/>
+                    <Cov CovItemId="S1" Value="1"/>
+                    <Cov CovItemId="S16" Value="1"/>
+                    <Cov CovItemId="S17" Value="1"/>
+                    <Cov CovItemId="S2" Value="1"/>
+                    <Cov CovItemId="S3" Value="1"/>
+                    <Cov CovItemId="S8" Value="1"/>
+                    <Cov CovItemId="S9" Value="1"/>
+                </CovPrefix>
+            </CovList>
+            <AssgnmntList>
+                <AssgnmntPrefix RootTermCovItemPrefix="reparti.Magazzino.java">
+                    <AssgnmntListEntry Length="1" RootTermCovItemId="C2">
+                        <MapEntry BoolAssgnmnt="1" Value="1"/>
+                    </AssgnmntListEntry>
+                    <AssgnmntListEntry Length="1" RootTermCovItemId="C4">
+                        <MapEntry BoolAssgnmnt="1" Value="1"/>
+                    </AssgnmntListEntry>
+                </AssgnmntPrefix>
+            </AssgnmntList>
+            <ObjMetaDataList/>
+            <MetaDataList/>
+        </TestCase>
+        <TestCase Comment="" Date="1689087326923" Name="reparti.TestMagazzino:testBR_r_Main_TTF">
+            <CovList>
+                <CovPrefix CovItemPrefix="reparti.Magazzino.java">
+                    <Cov CovItemId="B3" Value="1"/>
+                    <Cov CovItemId="B6" Value="1"/>
+                    <Cov CovItemId="S1" Value="1"/>
+                    <Cov CovItemId="S12" Value="1"/>
+                    <Cov CovItemId="S14" Value="1"/>
+                    <Cov CovItemId="S15" Value="1"/>
+                    <Cov CovItemId="S2" Value="1"/>
+                    <Cov CovItemId="S3" Value="1"/>
+                    <Cov CovItemId="S8" Value="1"/>
+                    <Cov CovItemId="S9" Value="1"/>
+                </CovPrefix>
+            </CovList>
+            <AssgnmntList>
+                <AssgnmntPrefix RootTermCovItemPrefix="reparti.Magazzino.java">
+                    <AssgnmntListEntry Length="1" RootTermCovItemId="C2">
+                        <MapEntry BoolAssgnmnt="1" Value="1"/>
+                    </AssgnmntListEntry>
+                    <AssgnmntListEntry Length="1" RootTermCovItemId="C3">
+                        <MapEntry BoolAssgnmnt="0" Value="1"/>
+                    </AssgnmntListEntry>
+                </AssgnmntPrefix>
+            </AssgnmntList>
+            <ObjMetaDataList/>
+            <MetaDataList/>
+        </TestCase>
+        <TestCase Comment="" Date="1689087326924" Name="reparti.TestMagazzino:testBR_r_Main_TTT">
+            <CovList>
+                <CovPrefix CovItemPrefix="reparti.Magazzino.java">
+                    <Cov CovItemId="B3" Value="1"/>
+                    <Cov CovItemId="B5" Value="1"/>
+                    <Cov CovItemId="B6" Value="10"/>
+                    <Cov CovItemId="S1" Value="1"/>
+                    <Cov CovItemId="S12" Value="11"/>
+                    <Cov CovItemId="S13" Value="1"/>
+                    <Cov CovItemId="S14" Value="10"/>
+                    <Cov CovItemId="S15" Value="10"/>
+                    <Cov CovItemId="S2" Value="1"/>
+                    <Cov CovItemId="S3" Value="1"/>
+                    <Cov CovItemId="S8" Value="1"/>
+                    <Cov CovItemId="S9" Value="1"/>
+                </CovPrefix>
+            </CovList>
+            <AssgnmntList>
+                <AssgnmntPrefix RootTermCovItemPrefix="reparti.Magazzino.java">
+                    <AssgnmntListEntry Length="1" RootTermCovItemId="C2">
+                        <MapEntry BoolAssgnmnt="1" Value="1"/>
+                    </AssgnmntListEntry>
+                    <AssgnmntListEntry Length="1" RootTermCovItemId="C3">
+                        <MapEntry BoolAssgnmnt="0" Value="10"/>
+                        <MapEntry BoolAssgnmnt="1" Value="1"/>
+                    </AssgnmntListEntry>
+                </AssgnmntPrefix>
+            </AssgnmntList>
+            <ObjMetaDataList/>
+            <MetaDataList/>
+        </TestCase>
+        <MetaDataList/>
+    </TestSession>
+</TestSessionContainer>

@@ -4,8 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import fabbrica.InvalidInputException;
-
 public class TestProduzione {
 
 	@Test
