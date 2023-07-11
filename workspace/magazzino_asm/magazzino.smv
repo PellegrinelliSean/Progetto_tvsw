@@ -1,0 +1,22 @@
+--file C:\Users\Pelle\Desktop\ProgettiGit\Progetto_tvsw\workspace\magazzino_asm\magazzino.smv
+-- options: flatten? false
+MODULE main
+	VAR
+		azione: boolean; --monitored
+		scaffale_prod_finiti: {-2147483647, 0, 1, 10, 2, 3, 4, 5, 6, 7, 8, 9}; --controlled
+		scaffale_semilavorati: {-2147483647, 0, 1, 10, 2, 3, 4, 5, 6, 7, 8, 9}; --controlled
+	ASSIGN
+		init(scaffale_prod_finiti) := 0;
+		init(scaffale_semilavorati) := 0;
+		next(scaffale_prod_finiti) :=
+			case
+				(!(scaffale_prod_finiti >= 10) & azione) & (scaffale_prod_finiti + 1) in {-2147483647, 0, 1, 10, 2, 3, 4, 5, 6, 7, 8, 9}: (scaffale_prod_finiti + 1);
+				TRUE: scaffale_prod_finiti;
+			esac;
+		next(scaffale_semilavorati) :=
+			case
+				(!(azione) & !(scaffale_semilavorati >= 10)) & (scaffale_semilavorati + 1) in {-2147483647, 0, 1, 10, 2, 3, 4, 5, 6, 7, 8, 9}: (scaffale_semilavorati + 1);
+				TRUE: scaffale_semilavorati;
+			esac;
+--CTL properties
+CTLSPEC NAME ctl0 := AG(!(! azione & (!(scaffale_semilavorati >= 10) & (scaffale_semilavorati != (scaffale_semilavorati + 1)))));

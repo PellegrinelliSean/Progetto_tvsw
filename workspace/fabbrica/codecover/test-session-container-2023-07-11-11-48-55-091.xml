@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?><TestSessionContainer xmlns="http://www.codecover.org/xml/testsession-container" Date="1689068935081" TestSessionContainerId="9c70da85-acb9-42e2-932d-23103018920c" version="1.0">
+    <SrcFileList>
+        <SrcFile Content="package reparti;&#13;&#10;&#13;&#10;import fabbrica.ScaffalePienoException;&#13;&#10;&#13;&#10;public class Magazzino {&#13;&#10;&#9;int scaffale_prod_finiti;&#13;&#10;&#9;int scaffale_semilavorati;&#13;&#10;&#9;int dim_scaffali;&#13;&#10;&#13;&#10;&#9;public Magazzino(int dim) {&#13;&#10;&#9;&#9;dim_scaffali = dim;&#13;&#10;&#9;&#9;scaffale_prod_finiti = 0;&#13;&#10;&#9;&#9;scaffale_semilavorati = 0;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public void compra() throws ScaffalePienoException {&#13;&#10;&#9;&#9;if (scaffale_semilavorati &gt;= dim_scaffali)&#13;&#10;&#9;&#9;&#9;throw new ScaffalePienoException();&#13;&#10;&#9;&#9;else&#13;&#10;&#9;&#9;&#9;scaffale_semilavorati++;&#13;&#10;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;public void riposiziona() throws ScaffalePienoException {&#13;&#10;&#9;&#9;if (scaffale_prod_finiti &gt;= dim_scaffali)&#13;&#10;&#9;&#9;&#9;throw new ScaffalePienoException();&#13;&#10;&#9;&#9;else&#13;&#10;&#9;&#9;&#9;scaffale_prod_finiti++;&#13;&#10;&#9;}&#13;&#10;}&#13;&#10;" Filename="Magazzino.java" Intrnl_Id="1"/>
+    </SrcFileList>
+    <CritList>
+        <CritListEntry Name="org.codecover.model.utils.criteria.ConditionCoverage" PluginName="org.codecover"/>
+        <CritListEntry Name="org.codecover.model.utils.criteria.BranchCoverage" PluginName="org.codecover"/>
+        <CritListEntry Name="org.codecover.model.utils.criteria.StatementCoverage" PluginName="org.codecover"/>
+    </CritList>
+    <BoolOpList/>
+    <HierarchyLvlTypeList>
+        <HierarchyLvlType EnglishName="package" IntrnlName="package" Intrnl_Id="2"/>
+        <HierarchyLvlType EnglishName="method" IntrnlName="method" Intrnl_Id="3"/>
+        <HierarchyLvlType EnglishName="class" IntrnlName="class" Intrnl_Id="4"/>
+        <HierarchyLvlType EnglishName="default package" IntrnlName="default package" Intrnl_Id="5"/>
+    </HierarchyLvlTypeList>
+    <MASTRoot>
+        <HierarchyLvl HierarchyLvlId="263" HierarchyLvlTypeId="5" Intrnl_Id="6" Name="default package">
+            <Header/>
+            <LocList/>
+            <HierarchyLvl HierarchyLvlId="262" HierarchyLvlTypeId="2" Intrnl_Id="7" Name="reparti">
+                <Header/>
+                <LocList/>
+                <HierarchyLvl HierarchyLvlId="261" HierarchyLvlTypeId="4" Intrnl_Id="8" Name="Magazzino">
+                    <Header>
+                        <Loc EndOffset="85" SrcFileId="1" StartOffset="63"/>
+                    </Header>
+                    <LocList>
+                        <Loc EndOffset="658" SrcFileId="1" StartOffset="63"/>
+                    </LocList>
+                    <HierarchyLvl HierarchyLvlId="258" HierarchyLvlTypeId="3" Intrnl_Id="9" Name="Magazzino">
+                        <Header>
+                            <Loc EndOffset="194" SrcFileId="1" StartOffset="169"/>
+                        </Header>
+                        <LocList>
+                            <Loc EndOffset="282" SrcFileId="1" StartOffset="169"/>
+                        </LocList>
+                        <StmntSeq Intrnl_Id="10">
+                            <LocList>
+                                <Loc EndOffset="219" SrcFileId="1" StartOffset="200"/>
+                                <Loc EndOffset="248" SrcFileId="1" StartOffset="223"/>
+                                <Loc EndOffset="278" SrcFileId="1" StartOffset="252"/>
+                            </LocList>
+                            <BasicStmnt CovItemId="S1" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="11">
+                                <LocList>
+                                    <Loc EndOffset="219" SrcFileId="1" StartOffset="200"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S2" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="12">
+                                <LocList>
+                                    <Loc EndOffset="248" SrcFileId="1" StartOffset="223"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S3" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="13">
+                                <LocList>
+                                    <Loc EndOffset="278" SrcFileId="1" StartOffset="252"/>
+                                </LocList>
+                            </BasicStmnt>
+                        </StmntSeq>
+                    </HierarchyLvl>
+                    <HierarchyLvl HierarchyLvlId="259" HierarchyLvlTypeId="3" Intrnl_Id="14" Name="compra">
+                        <Header>
+                            <Loc EndOffset="337" SrcFileId="1" StartOffset="287"/>
+                        </Header>
+                        <LocList>
+                            <Loc EndOffset="468" SrcFileId="1" StartOffset="287"/>
+                        </LocList>
+                        <StmntSeq Intrnl_Id="15">
+                            <LocList>
+                                <Loc EndOffset="462" SrcFileId="1" StartOffset="343"/>
+                            </LocList>
+                            <CondStmnt CovItemId="S4" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="16">
+                                <Branch CovItemId="B1" CovItemPrefix="reparti.Magazzino.java" Implct="false" Intrnl_Id="17">
+                                    <Cond/>
+                                    <LocList>
+                                        <Loc EndOffset="425" SrcFileId="1" StartOffset="390"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="18">
+                                        <LocList>
+                                            <Loc EndOffset="425" SrcFileId="1" StartOffset="390"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S5" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="19">
+                                            <LocList>
+                                                <Loc EndOffset="425" SrcFileId="1" StartOffset="390"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Branch CovItemId="B2" CovItemPrefix="reparti.Magazzino.java" Implct="false" Intrnl_Id="20">
+                                    <Cond>
+                                        <Loc EndOffset="433" SrcFileId="1" StartOffset="429"/>
+                                    </Cond>
+                                    <LocList>
+                                        <Loc EndOffset="462" SrcFileId="1" StartOffset="438"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="21">
+                                        <LocList>
+                                            <Loc EndOffset="462" SrcFileId="1" StartOffset="438"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S6" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="22">
+                                            <LocList>
+                                                <Loc EndOffset="462" SrcFileId="1" StartOffset="438"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Keyword EndOffset="345" SrcFileId="1" StartOffset="343"/>
+                                <LocList>
+                                    <Loc EndOffset="462" SrcFileId="1" StartOffset="343"/>
+                                </LocList>
+                                <RootTerm CovItemId="C1" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="23">
+                                    <BasicBoolTerm Intrnl_Id="24">
+                                        <LocList>
+                                            <Loc EndOffset="384" SrcFileId="1" StartOffset="347"/>
+                                        </LocList>
+                                    </BasicBoolTerm>
+                                </RootTerm>
+                            </CondStmnt>
+                        </StmntSeq>
+                    </HierarchyLvl>
+                    <HierarchyLvl HierarchyLvlId="260" HierarchyLvlTypeId="3" Intrnl_Id="25" Name="riposiziona">
+                        <Header>
+                            <Loc EndOffset="528" SrcFileId="1" StartOffset="473"/>
+                        </Header>
+                        <LocList>
+                            <Loc EndOffset="655" SrcFileId="1" StartOffset="473"/>
+                        </LocList>
+                        <StmntSeq Intrnl_Id="26">
+                            <LocList>
+                                <Loc EndOffset="651" SrcFileId="1" StartOffset="534"/>
+                            </LocList>
+                            <CondStmnt CovItemId="S7" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="27">
+                                <Branch CovItemId="B3" CovItemPrefix="reparti.Magazzino.java" Implct="false" Intrnl_Id="28">
+                                    <Cond/>
+                                    <LocList>
+                                        <Loc EndOffset="615" SrcFileId="1" StartOffset="580"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="29">
+                                        <LocList>
+                                            <Loc EndOffset="615" SrcFileId="1" StartOffset="580"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S8" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="30">
+                                            <LocList>
+                                                <Loc EndOffset="615" SrcFileId="1" StartOffset="580"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Branch CovItemId="B4" CovItemPrefix="reparti.Magazzino.java" Implct="false" Intrnl_Id="31">
+                                    <Cond>
+                                        <Loc EndOffset="623" SrcFileId="1" StartOffset="619"/>
+                                    </Cond>
+                                    <LocList>
+                                        <Loc EndOffset="651" SrcFileId="1" StartOffset="628"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="32">
+                                        <LocList>
+                                            <Loc EndOffset="651" SrcFileId="1" StartOffset="628"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S9" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="33">
+                                            <LocList>
+                                                <Loc EndOffset="651" SrcFileId="1" StartOffset="628"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Keyword EndOffset="536" SrcFileId="1" StartOffset="534"/>
+                                <LocList>
+                                    <Loc EndOffset="651" SrcFileId="1" StartOffset="534"/>
+                                </LocList>
+                                <RootTerm CovItemId="C2" CovItemPrefix="reparti.Magazzino.java" Intrnl_Id="34">
+                                    <BasicBoolTerm Intrnl_Id="35">
+                                        <LocList>
+                                            <Loc EndOffset="574" SrcFileId="1" StartOffset="538"/>
+                                        </LocList>
+                                    </BasicBoolTerm>
+                                </RootTerm>
+                            </CondStmnt>
+                        </StmntSeq>
+                    </HierarchyLvl>
+                </HierarchyLvl>
+            </HierarchyLvl>
+        </HierarchyLvl>
+    </MASTRoot>
+</TestSessionContainer>

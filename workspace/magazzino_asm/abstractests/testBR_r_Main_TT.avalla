@@ -1,0 +1,34 @@
+scenario testBR_r_Main_TT
+
+load ./..\magazzino.asm
+
+//// test name test@BR_r_Main_TT
+//// generated for (test goal): BR_r_Main_TT: azione and (scaffale_prod_finiti >= 10)
+check scaffale_semilavorati = 0;
+check scaffale_prod_finiti = 0;
+set azione := false;
+step
+check scaffale_semilavorati = 1;
+set azione := true;
+step
+check scaffale_prod_finiti = 1;
+step
+check scaffale_prod_finiti = 2;
+step
+check scaffale_prod_finiti = 3;
+step
+check scaffale_prod_finiti = 4;
+step
+check scaffale_prod_finiti = 5;
+step
+check scaffale_prod_finiti = 6;
+step
+check scaffale_prod_finiti = 7;
+step
+check scaffale_prod_finiti = 8;
+step
+check scaffale_prod_finiti = 9;
+step
+check scaffale_prod_finiti = 10;
+step
+check scaffale_prod_finiti = 10;
