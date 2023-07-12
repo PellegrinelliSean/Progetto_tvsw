@@ -10,7 +10,7 @@ public class TestMagazzino {
 	Magazzino m;
 	
 	@Before
-	public void Inizializzazione() {
+	public void inizializzazione() {
 		m = new Magazzino(10);
 	}
 		
