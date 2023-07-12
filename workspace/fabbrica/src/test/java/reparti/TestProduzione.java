@@ -53,12 +53,12 @@ public class TestProduzione {
 		
 		//Tre casi di input errati
 		try { prod = new Produzione(0);
-			fail(); } 
+			fail(); }
 		catch (InvalidInputException e) {}
 		
-		try { prod = new Produzione(3); 
+		try { prod = new Produzione(3);
 			prod.posiziona(-1);
-			fail(); } 
+			fail(); }
 		catch (InvalidInputException e) {}
 		
 		try { prod = new Produzione(3); 

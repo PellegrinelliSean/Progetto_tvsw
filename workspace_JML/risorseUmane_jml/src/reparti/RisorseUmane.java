@@ -1,7 +1,7 @@
 package reparti;
 
 public class RisorseUmane {
-	/*@ spec_public @*/ double[] valutazioni;
+	/*@ spec_public @*/ int[] valutazioni;
 	
 	//@ public invariant valutazioni != null && valutazioni.length > 0;
 	/*@ public invariant (\forall int j; 0 <= j && j < valutazioni.length; 
@@ -10,7 +10,7 @@ public class RisorseUmane {
 	//@ requires numDipendenti > 0;
 	//@ ensures (\forall int j; 0 <= j && j < valutazioni.length; valutazioni[j] == 50);
 	public RisorseUmane(int numDipendenti) {
-		valutazioni = new double[numDipendenti];
+		valutazioni = new int[numDipendenti];
 		//@ loop_invariant i >= 0 && (\forall int j; 0 <= j && j < i; valutazioni[j] == 50);
 		for (int i = 0; i < valutazioni.length; i++) {
 			valutazioni[i] = 50;
@@ -34,6 +34,7 @@ public class RisorseUmane {
 	//@ ensures (valutazioni[i] == 100) <== ((\old(valutazioni[i]) + 20) >= 100);
 	//@ ensures (valutazioni[i] == 0) <== ((\old(valutazioni[i]) - 20) <= 0);
 	public void valuta(int i, int giorniLavoro, int oreStraordinari, boolean sanzione) {
+		if (i < 0 || i >= valutazioni.length) return;
 		// valutazione negativa
 		if (sanzione || (giorniLavoro < 200 && oreStraordinari < 10)) valutazioni[i] -= 20;
 		// valutazione positiva
@@ -44,8 +45,8 @@ public class RisorseUmane {
 	
 	//@ ensures (\forall int j; 0 <= j && j < valutazioni.length; \result <= valutazioni[j]);
 	//@ ensures (\exists int j; 0 <= j && j < valutazioni.length; \result == valutazioni[j]);
-	public double minVal() {
-		double min = valutazioni[0];
+	public int minVal() {
+		int min = valutazioni[0];
 		/*@ loop_invariant i >= 0 && i <= valutazioni.length &&
 	 	(\forall int j; 0 <= j && j < i; min <= valutazioni[j]) &&
 	 	(\exists int j; 0 <= j && j < i; min == valutazioni[j]); @*/
@@ -58,8 +59,8 @@ public class RisorseUmane {
 	
 	//@ ensures (\forall int j; 0 <= j && j < valutazioni.length; \result >= valutazioni[j]);
 	//@ ensures (\exists int j; 0 <= j && j < valutazioni.length; \result == valutazioni[j]);
-	public double maxVal() {
-		double max = valutazioni[0];
+	public int maxVal() {
+		int max = valutazioni[0];
 		/*@ loop_invariant i >= 0 && i <= valutazioni.length &&
 		 	(\forall int j; 0 <= j && j < i; max >= valutazioni[j]) &&
 		 	(\exists int j; 0 <= j && j < i; max == valutazioni[j]); @*/
